@@ -30,7 +30,7 @@ public class Location {
     private String address;
 
     @OneToMany(mappedBy = "location")
-    private List<Product> products=new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public Location() {
     }
@@ -42,18 +42,20 @@ public class Location {
         this.products = products;
     }
 
-    public void addProduct(Product product){
-        if(product.getLocation()==null){
-            if(!this.products.contains(product))
+    public void addProduct(Product product) {
+        if (product.getLocation() == null) {
+            if (!this.products.contains(product)) {
                 this.products.add(product);
+            }
             product.setLocation(this);
         }
     }
 
-    public void removeProduct(Product product){
-        if(product.getLocation()==this) {
-            if(this.products.contains(product))
+    public void removeProduct(Product product) {
+        if (product.getLocation() == this) {
+            if (this.products.contains(product)) {
                 this.products.remove(product);
+            }
             product.setLocation(null);
         }
     }

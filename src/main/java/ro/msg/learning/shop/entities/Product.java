@@ -60,23 +60,27 @@ public class Product {
 
     public Product(String name) {
         this.name = name;
-        this.massUnit=MassUnit.KG;
-        this.distanceUnit=DistanceUnit.INCH;
     }
 
-    public Product(short quantity, String name, String supplierName, String description, MassUnit massUnit, double mass, DistanceUnit distanceUnit, double width, double height, double depth, String currencyCode, double price, ProductCategory category) {
+    public Product(short quantity, String name, String supplierName, String description, String currencyCode, double price, ProductCategory category) {
         this.quantity = quantity;
         this.name = name;
         this.supplierName = supplierName;
         this.description = description;
-        this.massUnit = massUnit;
-        this.mass = mass;
+        this.currencyCode = currencyCode;
+        this.price = price;
+        this.category = category;
+    }
+
+    public void setDimensions(DistanceUnit distanceUnit, double width, double height, double depth) {
         this.distanceUnit = distanceUnit;
         this.width = width;
         this.height = height;
         this.depth = depth;
-        this.currencyCode = currencyCode;
-        this.price = price;
-        this.category = category;
+    }
+
+    public void setWeight(MassUnit massUnit, double mass) {
+        this.massUnit = massUnit;
+        this.mass = mass;
     }
 }
