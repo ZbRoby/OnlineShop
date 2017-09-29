@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.entities.Product;
+import ro.msg.learning.shop.entities.ProductCategory;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -44,20 +45,35 @@ public class ProductJDBC {
 
     }
 
-    //TODO findAll for ProductJDBC
     @Transactional(readOnly = true)
     public List<Product> findAll() {
         return jdbcTemplate.query("select * from jProducts"
-            , (rs, rowNum) -> new Product(rs.getString("name")));
+            , (rs, rowNum) -> findById(rs.getLong("id")));
     }
 
-
-    //TODO findById for ProductJDBC
     @Transactional(readOnly = true)
     public Product findById(long id) {
         return jdbcTemplate.queryForObject(
             "select * from jProducts where id=?",
-            new Object[]{id}, (rs, rowNum) -> new Product(rs.getString("name")));
+            new Object[]{id}, (rs, rowNum) -> {
+                Product product = new Product();
+                product.setId(id);
+                product.setName(rs.getString("name"));
+                Integer temp = rs.getInt("categoryId");
+                if (temp != 0) {
+                    product.setCategory(
+                        jdbcTemplate.queryForObject("select * from jCategory where id=?",
+                            new Object[]{temp}, (rs2, rowNum2) -> {
+                                ProductCategory productCategory = new ProductCategory();
+                                productCategory.setId(rs2.getInt("id"));
+                                productCategory.setName(rs2.getString("name"));
+                                return productCategory;
+                            })
+                    );
+                }
+                return product;
+            });
+
     }
 }
 

@@ -46,23 +46,21 @@ public class CategoryJDBC {
         return productCategory;
     }
 
-    //TODO findAll for CategoryJDBC
     @Transactional(readOnly = true)
     public List<ProductCategory> findAll() {
         return jdbcTemplate.query("SELECT * FROM jCategory"
-            , (rs, rowNum) -> new ProductCategory(rs.getString("name")));
+            , (rs, rowNum) -> findById(rs.getLong("id")));
     }
 
-    //TODO findById for CategoryJDBC
     @Transactional(readOnly = true)
-    public ProductCategory findProductCategoryById(long id) {
+    public ProductCategory findById(long id) {
         return jdbcTemplate.queryForObject(
             "SELECT * FROM jCategory WHERE id=?",
             new Object[]{id}, (rs, rowNum) -> {
                 ProductCategory productCategory = new ProductCategory();
                 productCategory.setId(rs.getLong("id"));
-                if (rs.getObject("primaryCategoryId") != null) {
-                    productCategory.setMainCategory(this.findProductCategoryById(rs.getLong("primaryCategoryId")));
+                if (rs.getLong("primaryCategoryId") != 0) {
+                    productCategory.setMainCategory(this.findById(rs.getLong("primaryCategoryId")));
                 }
                 productCategory.setName(rs.getString("name"));
 
