@@ -32,7 +32,7 @@ public class ProductJDBCTest {
     public void findAllUsers() {
         List<Product> products = productJDBC.findAll();
         assertNotNull(products);
-        assertTrue(!products.isEmpty());
+        assertFalse(products.isEmpty());
     }
 
     @Test

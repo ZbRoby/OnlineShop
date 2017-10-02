@@ -33,7 +33,7 @@ public class CategoryJDBCTest {
     public void findAllUsers() {
         List<ProductCategory> productCategories = categoryJDBC.findAll();
         assertNotNull(productCategories);
-        assertTrue(!productCategories.isEmpty());
+        assertFalse(productCategories.isEmpty());
     }
 
     @Test
