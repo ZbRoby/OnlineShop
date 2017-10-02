@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     @JsonProperty("Orders")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public Customer() {
 

@@ -1,8 +1,7 @@
-package ro.msg.learning.shop.entities.enums;
+package ro.msg.learning.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ro.msg.learning.shop.entities.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;

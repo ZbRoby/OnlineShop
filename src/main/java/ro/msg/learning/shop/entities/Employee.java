@@ -6,6 +6,7 @@ import lombok.Data;
 import ro.msg.learning.shop.entities.enums.Title;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     @JsonProperty("Orders")
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
     public Employee() {
     }

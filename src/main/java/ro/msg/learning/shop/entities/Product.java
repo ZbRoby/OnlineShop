@@ -3,7 +3,6 @@ package ro.msg.learning.shop.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import ro.msg.learning.shop.entities.enums.DistanceUnit;
-import ro.msg.learning.shop.entities.enums.Location;
 import ro.msg.learning.shop.entities.enums.MassUnit;
 
 import javax.persistence.*;
