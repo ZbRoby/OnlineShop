@@ -6,6 +6,7 @@ import lombok.Data;
 import ro.msg.learning.shop.entities.enums.Title;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Data
 @Table(name = "EMPLOYEES")
 @Entity
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @GeneratedValue
@@ -24,34 +25,38 @@ public class Employee {
     @Column(name = "ID")
     private long id;
     @JsonProperty("FirstName")
+    @Column(name = "First_Name", nullable = false, unique = false)
     private String firstName;
     @JsonProperty("LastName")
+    @Column(name = "Last_Name", nullable = false, unique = false)
     private String lastName;
     @JsonProperty("Username")
+    @Column(name = "Username", nullable = false, unique = true)
     private String username;
     @JsonIgnore
+    @Column(name = "Password", nullable = false, unique = false)
     private String password;
-    @JsonProperty("Photo")
-    private String photo;
     @JsonProperty("HomePhone")
+    @Column(name = "Home_Phone", nullable = false, unique = false)
     private String homePhone;
-    @Enumerated(EnumType.STRING)@JsonProperty("Title")
+    @Enumerated(EnumType.STRING)
+    @JsonProperty("Title")
+    @Column(name = "Title", nullable = false, unique = false)
     private Title title;
 
 
     @OneToMany(mappedBy = "employee")
-    @JsonProperty("Orders")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String username, String password, String photo, String homePhone, Title title) {
+    public Employee(String firstName, String lastName, String username, String password, String homePhone, Title title) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.photo = photo;
         this.homePhone = homePhone;
         this.title = title;
     }

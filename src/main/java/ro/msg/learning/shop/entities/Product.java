@@ -1,11 +1,14 @@
 package ro.msg.learning.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import ro.msg.learning.shop.entities.enums.DistanceUnit;
-import ro.msg.learning.shop.entities.enums.MassUnit;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -14,72 +17,75 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "PRODUCTS")
-public class Product {
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue
     @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Quantity")
-    private short quantity;
     @JsonProperty("Name")
+    @Column(name = "Name", nullable = false, unique = true)
     private String name;
     @JsonProperty("SupplierName")
+    @Column(name = "Supplier_Name", nullable = false, unique = false)
     private String supplierName;
     @JsonProperty("Description")
+    @Column(name = "Description", nullable = true, unique = false)
     private String description;
-    @Enumerated(EnumType.STRING)@JsonProperty("MassUnit")
-    private MassUnit massUnit;
-    @JsonProperty("Mass")
-    private double mass;
-    @Enumerated(EnumType.STRING)@JsonProperty("DistanceUnit")
-    private DistanceUnit distanceUnit;
-    @JsonProperty("Width")
-    private double width;
-    @JsonProperty("Height")
-    private double height;
-    @JsonProperty("Depth")
-    private double depth;
     @JsonProperty("CurrencyCode")
+    @Column(name = "Currency_Code", nullable = false, unique = false)
     private String currencyCode;
     @JsonProperty("Price")
+    @Column(name = "Price", nullable = false, unique = false)
     private double price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty("Category_ID")
+    @OneToOne
+    @JsonProperty("Details_ID")
+    private ProductDetails productDetails;
+
+    @ManyToOne
+    @JsonIgnore
     private ProductCategory category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty("Location_ID")
-    private Location location;
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<ProductsLocations> productsLocations = new ArrayList<>();
 
     public Product() {
     }
 
-    public Product(String name) {
-        this.name = name;
-    }
-
-    public Product(short quantity, String name, String supplierName, String description, String currencyCode, double price, ProductCategory category) {
-        this.quantity = quantity;
+    public Product(String name, String supplierName, String description, String currencyCode, double price, ProductDetails productDetails, ProductCategory category) {
         this.name = name;
         this.supplierName = supplierName;
         this.description = description;
         this.currencyCode = currencyCode;
         this.price = price;
+        this.productDetails = productDetails;
         this.category = category;
     }
 
-    public void setDimensions(DistanceUnit distanceUnit, double width, double height, double depth) {
-        this.distanceUnit = distanceUnit;
-        this.width = width;
-        this.height = height;
-        this.depth = depth;
+    public void addLocation(Location location, long quantity) {
+        if (!productsLocations.stream().anyMatch(x -> x.getLocation() == location)) {
+            ProductsLocations temp = new ProductsLocations();
+            temp.setLocation(location);
+            temp.setProduct(this);
+            temp.setLocationId(location.getId());
+            temp.setProductId(this.getId());
+            temp.setQuantity(quantity);
+        }
     }
 
-    public void setWeight(MassUnit massUnit, double mass) {
-        this.massUnit = massUnit;
-        this.mass = mass;
+    public void removeLocation(Location location) {
+        productsLocations.stream().filter(x -> x.getLocation() == location).forEach(productsLocations::remove);
+    }
+
+    public Long getQuantity(Location location) {
+        final Optional<ProductsLocations> temp = productsLocations.stream().filter(x -> x.getLocation() == location).findFirst();
+        if (temp.isPresent()) {
+            return temp.get().getQuantity();
+        } else {
+            return null;
+        }
     }
 }

@@ -10,7 +10,5 @@ import ro.msg.learning.shop.entities.ProductCategory;
 
 @Repository
 public interface ProductCategoryRepository extends CrudRepository<ProductCategory, Long> {
-
-
 }
 

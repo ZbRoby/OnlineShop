@@ -1,11 +1,12 @@
 package ro.msg.learning.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,39 +16,45 @@ import java.util.List;
 @Data
 @Table(name = "ORDERS")
 @Entity
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue
     @JsonProperty("ID")
+    @Column(name = "ID")
     private long id;
-
     @JsonProperty("ShippedDate")
-    private Date shippedDate;
-
+    @Column(name = "Shipped_Date", nullable = true, unique = false)
+    private java.sql.Date shippedDate;
     @JsonProperty("OrderDate")
-    private Date orderDate;
+    @Column(name = "Order_Date", nullable = false, unique = false)
+    private java.sql.Date orderDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty("Customer_ID")
+    @ManyToOne
+    @JsonIgnore
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty("Employee_ID")
+    @ManyToOne
+    @JsonIgnore
     private Employee employee;
 
-    @JsonProperty("OrderDetails")
+    @ManyToOne
+    @JsonIgnore
+    private Address address;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "order")
     private List<OrderDetails> ordersDetails=new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(Date shippedDate, Date orderDate, Customer customer, Employee employee) {
+    public Order(java.sql.Date shippedDate, java.sql.Date orderDate, Customer customer, Employee employee, Address address) {
         this.shippedDate = shippedDate;
         this.orderDate = orderDate;
         this.customer = customer;
         this.employee = employee;
+        this.address = address;
     }
 
     public void addOrderDetail(OrderDetails orderDetails){

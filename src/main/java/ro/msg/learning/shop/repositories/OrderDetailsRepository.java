@@ -9,6 +9,5 @@ import ro.msg.learning.shop.entities.OrderDetails;
  */
 
 @Repository
-public interface OrderDetailsRepository extends CrudRepository<OrderDetails,Long>{
-
+public interface OrderDetailsRepository extends CrudRepository<OrderDetails, Long> {
 }

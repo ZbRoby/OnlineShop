@@ -1,9 +1,11 @@
 package ro.msg.learning.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "PRODUCT_CATEGORIES")
-public class ProductCategory {
+public class ProductCategory implements Serializable {
 
     @Id
     @GeneratedValue
@@ -22,21 +24,18 @@ public class ProductCategory {
     @Column(name = "ID")
     private long id;
     @JsonProperty("Name")
+    @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
     @OneToOne
-    @JsonProperty("Main_Category_ID")
+    @JsonProperty("MainCategoryID")
     private ProductCategory mainCategory;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Product> products =new ArrayList<>();
 
     public ProductCategory() {
-    }
-
-    public ProductCategory(String name) {
-        this.name = name;
     }
 
     public ProductCategory(String name, ProductCategory mainCategory) {

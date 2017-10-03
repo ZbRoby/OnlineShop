@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -12,25 +13,25 @@ import javax.persistence.*;
 @Data
 @Table(name = "ORDER_DETAILS")
 @Entity
-public class OrderDetails {
+public class OrderDetails implements Serializable {
 
     @Id
     @GeneratedValue
     @JsonProperty("ID")
+    @Column(name = "ID")
     private long id;
-
     @JsonProperty("Quantity")
+    @Column(name = "Quantity", nullable = true, unique = false)
     private short quantity;
-
-
     @JsonProperty("Discount")
+    @Column(name = "Discount", nullable = false, unique = false)
     private double discount;
-
     @JsonProperty("UnitPrice")
+    @Column(name = "UnitPrice", nullable = false, unique = false)
     private double unitPrice;
 
     @OneToOne
-    @JsonProperty("Product_ID")
+    @JsonProperty("ProductID")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)

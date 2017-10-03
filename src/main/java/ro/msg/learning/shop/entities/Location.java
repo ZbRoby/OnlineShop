@@ -1,11 +1,14 @@
 package ro.msg.learning.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -14,48 +17,51 @@ import java.util.List;
 @Data
 @Table(name = "LOCATIONS")
 @Entity
-public class Location {
+public class Location implements Serializable {
 
     @Id
     @GeneratedValue
     @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Country")
-    private String country;
-    @JsonProperty("City")
-    private String city;
-    @JsonProperty("Address")
-    private String address;
 
+    @ManyToOne
+    @JsonIgnore
+    private Address address;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "location")
-    private List<Product> products = new ArrayList<>();
+    private List<ProductsLocations> productsLocations = new ArrayList<>();
 
     public Location() {
     }
 
-    public Location(String country, String city, String address, List<Product> products) {
-        this.country = country;
-        this.city = city;
+    public Location(Address address) {
         this.address = address;
-        this.products = products;
     }
 
-    public void addProduct(Product product) {
-        if (product.getLocation() == null) {
-            if (!this.products.contains(product)) {
-                this.products.add(product);
-            }
-            product.setLocation(this);
+    public void addProduct(Product product, long quantity) {
+        if (!productsLocations.stream().anyMatch(x -> x.getProduct() == product)) {
+            ProductsLocations temp = new ProductsLocations();
+            temp.setLocation(this);
+            temp.setProduct(product);
+            temp.setLocationId(this.getId());
+            temp.setProductId(product.getId());
+            temp.setQuantity(quantity);
         }
+
     }
 
     public void removeProduct(Product product) {
-        if (product.getLocation() == this) {
-            if (this.products.contains(product)) {
-                this.products.remove(product);
-            }
-            product.setLocation(null);
+        productsLocations.stream().filter(x -> x.getProduct() == product).forEach(productsLocations::remove);
+    }
+
+    public Long getQuantity(Product product) {
+        final Optional<ProductsLocations> temp = productsLocations.stream().filter(x -> x.getProduct() == product).findFirst();
+        if (temp.isPresent()) {
+            return temp.get().getQuantity();
+        } else {
+            return null;
         }
     }
 }

@@ -5,6 +5,4 @@ package ro.msg.learning.shop.entities.enums;
  */
 public enum DistanceUnit {
     M, CM, KM, INCH
-
-
 }

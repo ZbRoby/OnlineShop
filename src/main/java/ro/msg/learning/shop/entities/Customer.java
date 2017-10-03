@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Data()
 @Table(name = "CUSTOMERS")
 @Entity
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
     @GeneratedValue
@@ -23,31 +24,30 @@ public class Customer {
     @Column(name = "ID")
     private long id;
     @JsonProperty("FirstName")
+    @Column(name = "FirstName", nullable = false, unique = false)
     private String firstName;
     @JsonProperty("LastName")
+    @Column(name = "LastName", nullable = false, unique = false)
     private String lastName;
     @JsonProperty("Username")
+    @Column(name = "Username", nullable = false, unique = true)
     private String username;
     @JsonIgnore
+    @Column(name = "Password", nullable = false, unique = false)
     private String password;
-    @JsonProperty("Address")
-    private String address;
-
 
     @OneToMany(mappedBy = "customer")
-    @JsonProperty("Orders")
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
 
     public Customer() {
-
     }
 
-    public Customer(String firstName, String lastName, String username, String password, String address) {
+    public Customer(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
-        this.address = address;
     }
 
     public void addOrder(Order order){

@@ -1,0 +1,50 @@
+package ro.msg.learning.shop.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
+ */
+@Data
+@Entity
+@Table(name = "PRODUCTS_LOCATIONS")
+public class ProductsLocations implements Serializable {
+
+    @Id
+    @Column(name = "Product_ID")
+    @JsonProperty("ProductID")
+    private Long productId;
+    @Id
+    @Column(name = "Location_ID")
+    @JsonProperty("LocationID")
+    private Long locationId;
+    @Column(name = "Quantity", nullable = true, unique = false)
+    @JsonProperty("Quantity")
+    private long quantity;
+
+    @JsonIgnore
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "Product_ID", referencedColumnName = "ID")
+    private Product product;
+
+    @JsonIgnore
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "Location_ID", referencedColumnName = "ID")
+    private Location location;
+
+    public ProductsLocations() {
+    }
+
+    public ProductsLocations(Long productId, Long locationId, long quantity, Product product, Location location) {
+        this.productId = productId;
+        this.locationId = locationId;
+        this.quantity = quantity;
+        this.product = product;
+        this.location = location;
+    }
+}
