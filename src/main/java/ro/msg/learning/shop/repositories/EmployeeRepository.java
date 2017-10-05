@@ -1,6 +1,6 @@
 package ro.msg.learning.shop.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ro.msg.learning.shop.entities.Employee;
 
@@ -9,5 +9,5 @@ import ro.msg.learning.shop.entities.Employee;
  */
 
 @Repository
-public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 }
