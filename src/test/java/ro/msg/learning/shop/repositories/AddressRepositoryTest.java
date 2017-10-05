@@ -157,8 +157,8 @@ public class AddressRepositoryTest {
         repository.save(new Address(country1, city1, street1, "Test1", null));
         entityManager.persist(new Address(country2, city2, street2, "Test2", null));
 
-        assertNotNull("Test CountryAndCityAndStreet NotNull", this.repository.findByCountryAndCityAndStreet(country1,city1,street1));
-        assertNotNull("Test CountryAndCityAndStreet NotNull", this.repository.findByCountryAndCityAndStreet(country2,city2,street2));
+        assertNotNull("Test CountryAndCityAndStreet NotNull save", this.repository.findByCountryAndCityAndStreet(country1,city1,street1));
+        assertNotNull("Test CountryAndCityAndStreet NotNull persist", this.repository.findByCountryAndCityAndStreet(country2,city2,street2));
         assertNull("Test CountryAndCityAndStreet Null", this.repository.findByCountryAndCityAndStreet(country3,city3,street3));
 
         repository.delete(repository.findByCountryAndCityAndStreet(country1,city1,street1));
