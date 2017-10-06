@@ -44,9 +44,7 @@ public class ProductJDBCTest {
 
     @Test
     public void testCreate() throws Exception {
-        Product product = new Product();
-        product.setId(0);
-        product.setName("Test");
+        Product product = new Product(100,"Test");
         Product product2 = productJDBC.create(product);
         Product product3 = productJDBC.findById(product2.getId());
         assertNotNull(product3);

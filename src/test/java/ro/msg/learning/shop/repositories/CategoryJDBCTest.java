@@ -45,9 +45,7 @@ public class CategoryJDBCTest {
 
     @Test
     public void testCreate() throws Exception {
-        ProductCategory productCategory = new ProductCategory();
-        productCategory.setId(0);
-        productCategory.setName("Test");
+        ProductCategory productCategory = new ProductCategory(100,"Test");
         ProductCategory productCategory2 = categoryJDBC.create(productCategory);
         ProductCategory productCategory3 = categoryJDBC.findById(productCategory2.getId());
         assertNotNull(productCategory3);

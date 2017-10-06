@@ -1,17 +1,17 @@
 DROP TABLE jCategory IF EXISTS;
 
 CREATE TABLE jCategory (
-    id                INTEGER IDENTITY (1, 1) PRIMARY KEY NOT NULL,
+    id                BIGINT PRIMARY KEY NOT NULL,
     name              VARCHAR(255),
-    primaryCategoryId INTEGER,
+    primaryCategoryId BIGINT,
     CONSTRAINT CatToCat FOREIGN KEY (primaryCategoryId) REFERENCES jCategory (id)
 );
 
 DROP TABLE jProducts IF EXISTS;
 
 CREATE TABLE jProducts (
-    id         INTEGER IDENTITY (1, 1) PRIMARY KEY NOT NULL,
+    id         BIGINT PRIMARY KEY NOT NULL,
     name       VARCHAR(255),
-    categoryID INTEGER,
+    categoryID BIGINT,
     CONSTRAINT ProdToCat FOREIGN KEY (categoryID) REFERENCES jCategory (id)
 )
