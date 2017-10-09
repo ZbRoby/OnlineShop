@@ -3,9 +3,11 @@ package ro.msg.learning.shop.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @Data
 @Table(name = "ORDERS")
 @Entity
+@ToString(exclude = {"customer", "employee", "address", "ordersDetails"})
 public class Order implements Serializable {
 
     @Id
@@ -25,10 +28,10 @@ public class Order implements Serializable {
     private long id;
     @JsonProperty("ShippedDate")
     @Column(name = "Shipped_Date", nullable = true, unique = false)
-    private java.sql.Date shippedDate;
+    private Date shippedDate;
     @JsonProperty("OrderDate")
     @Column(name = "Order_Date", nullable = false, unique = false)
-    private java.sql.Date orderDate;
+    private Date orderDate;
 
     @ManyToOne
     @JsonIgnore
@@ -44,12 +47,12 @@ public class Order implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "order")
-    private List<OrderDetails> ordersDetails=new ArrayList<>();
+    private List<OrderDetails> ordersDetails = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(java.sql.Date shippedDate, java.sql.Date orderDate, Customer customer, Employee employee, Address address) {
+    public Order(Date shippedDate, Date orderDate, Customer customer, Employee employee, Address address) {
         this.shippedDate = shippedDate;
         this.orderDate = orderDate;
         this.customer = customer;

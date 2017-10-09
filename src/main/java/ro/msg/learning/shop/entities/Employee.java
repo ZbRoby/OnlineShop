@@ -3,6 +3,7 @@ package ro.msg.learning.shop.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 import ro.msg.learning.shop.entities.enums.Title;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @Table(name = "EMPLOYEES")
 @Entity
+@ToString(exclude = "orders")
 public class Employee implements Serializable {
 
     @Id

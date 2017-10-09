@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Data
 @Table(name = "ORDER_DETAILS")
 @Entity
+@ToString(exclude = {"product", "order"})
 public class OrderDetails implements Serializable {
 
     @Id

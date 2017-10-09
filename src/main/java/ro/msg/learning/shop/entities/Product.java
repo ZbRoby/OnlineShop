@@ -3,6 +3,7 @@ package ro.msg.learning.shop.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Data
 @Entity
 @Table(name = "PRODUCTS")
+@ToString(exclude = {"category", "productsLocations"})
 public class Product implements Serializable {
 
     @Id
