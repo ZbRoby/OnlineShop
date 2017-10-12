@@ -42,11 +42,8 @@ public class Address implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "address")
-    private List<Location> locations = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "address")
-    private List<Order> orders = new ArrayList<>();
 
     public Address() {
     }
@@ -59,39 +56,22 @@ public class Address implements Serializable {
         this.other = other;
     }
 
-    public void addOrder(Order order) {
-        if (order.getAddress() == null) {
-            if (!this.getOrders().contains(order)) {
-                this.getOrders().add(order);
+    public void addCustomer(Customer customer) {
+        if (customer.getAddress() == null) {
+            if (!this.getCustomers().contains(customer)) {
+                this.getCustomers().add(customer);
             }
-            order.setAddress(this);
+            customer.setAddress(this);
         }
     }
 
-    public void removeOrder(Order order) {
-        if (order.getAddress() == this) {
-            if (this.getOrders().contains(order)) {
-                this.getOrders().remove(order);
+    public void removeCustomer(Customer customer) {
+        if (customer.getAddress() == this) {
+            if (this.getCustomers().contains(customer)) {
+                this.getCustomers().remove(customer);
             }
-            order.setAddress(null);
+            customer.setAddress(null);
         }
     }
 
-    public void addLocation(Location location) {
-        if (location.getAddress() == null) {
-            if (!this.getLocations().contains(location)) {
-                this.getLocations().add(location);
-            }
-            location.setAddress(this);
-        }
-    }
-
-    public void removeLocation(Location location) {
-        if (location.getAddress() == this) {
-            if (this.getLocations().contains(location)) {
-                this.getLocations().remove(location);
-            }
-            location.setAddress(null);
-        }
-    }
 }

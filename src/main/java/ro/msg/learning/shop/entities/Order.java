@@ -39,7 +39,7 @@ public class Order implements Serializable {
     @ManyToOne
     private Employee employee;
 
-    @ManyToOne
+    @OneToOne
     private Address address;
 
     @JsonIgnore

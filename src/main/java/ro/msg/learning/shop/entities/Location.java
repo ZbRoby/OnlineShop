@@ -27,7 +27,7 @@ public class Location implements Serializable {
     @Column(name = "ID")
     private long id;
 
-    @ManyToOne
+    @OneToOne
     private Address address;
 
     @JsonIgnore
@@ -42,7 +42,7 @@ public class Location implements Serializable {
     }
 
     public void addProduct(Product product, long quantity) {
-        if (!productsLocations.stream().anyMatch(x -> x.getProduct() == product)) {
+        if (productsLocations.stream().noneMatch(x -> x.getProduct() == product)) {
             ProductsLocations temp = new ProductsLocations();
             temp.setLocation(this);
             temp.setProduct(product);
@@ -60,17 +60,11 @@ public class Location implements Serializable {
 
     public Long getQuantity(Product product) {
         final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getProduct() == product).findFirst();
-        if (temp.isPresent()) {
-            return temp.get().getQuantity();
-        } else {
-            return null;
-        }
+        return temp.map(ProductsLocations::getQuantity).orElse(null);
     }
 
     public void setQuantity(Product product, long quantity) {
         final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getProduct() == product).findFirst();
-        if (temp.isPresent()) {
-            temp.get().setQuantity(quantity);
-        }
+        temp.ifPresent(p -> p.setQuantity(quantity));
     }
 }

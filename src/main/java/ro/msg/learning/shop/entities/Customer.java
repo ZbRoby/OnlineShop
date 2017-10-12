@@ -38,6 +38,9 @@ public class Customer implements Serializable {
     @Column(name = "Password", nullable = false, unique = false)
     private String password;
 
+    @ManyToOne
+    private Address address;
+
     @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
