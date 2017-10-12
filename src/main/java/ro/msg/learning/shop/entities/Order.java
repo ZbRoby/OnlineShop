@@ -57,18 +57,20 @@ public class Order implements Serializable {
         this.address = address;
     }
 
-    public void addOrderDetail(OrderDetails orderDetails){
-        if(orderDetails.getOrder()==null){
-            if(!this.getOrdersDetails().contains(orderDetails))
+    public void addOrderDetail(OrderDetails orderDetails) {
+        if (orderDetails.getOrder() == null) {
+            if (!this.getOrdersDetails().contains(orderDetails)) {
                 this.getOrdersDetails().add(orderDetails);
+            }
             orderDetails.setOrder(this);
         }
     }
 
-    public void removeOrderDetail(OrderDetails orderDetails){
-        if(orderDetails.getOrder()==this){
-            if(this.getOrdersDetails().contains(orderDetails))
+    public void removeOrderDetail(OrderDetails orderDetails) {
+        if (orderDetails.getOrder() == this) {
+            if (this.getOrdersDetails().contains(orderDetails)) {
                 this.getOrdersDetails().remove(orderDetails);
+            }
             orderDetails.setOrder(null);
         }
     }

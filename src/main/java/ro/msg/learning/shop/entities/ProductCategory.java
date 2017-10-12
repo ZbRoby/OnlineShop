@@ -34,7 +34,7 @@ public class ProductCategory implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
-    private List<Product> products =new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
 
     public ProductCategory() {
     }
@@ -44,18 +44,20 @@ public class ProductCategory implements Serializable {
         this.mainCategory = mainCategory;
     }
 
-    public void addProduct(Product product){
-        if(product.getCategory()==null){
-            if(!getProducts().contains(product))
+    public void addProduct(Product product) {
+        if (product.getCategory() == null) {
+            if (!getProducts().contains(product)) {
                 getProducts().add(product);
+            }
             product.setCategory(this);
         }
     }
 
-    public void removeProduct(Product product){
-        if(product.getCategory()==this) {
-            if(getProducts().contains(product))
+    public void removeProduct(Product product) {
+        if (product.getCategory() == this) {
+            if (getProducts().contains(product)) {
                 getProducts().remove(product);
+            }
             product.setCategory(null);
         }
     }

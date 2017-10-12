@@ -63,18 +63,20 @@ public class Employee implements Serializable {
         this.title = title;
     }
 
-    public void addOrder(Order order){
-        if(order.getEmployee()==null){
-            if(!this.getOrders().contains(order))
+    public void addOrder(Order order) {
+        if (order.getEmployee() == null) {
+            if (!this.getOrders().contains(order)) {
                 this.getOrders().add(order);
+            }
             order.setEmployee(this);
         }
     }
 
-    public void removeOrder(Order order){
-        if(order.getEmployee()==this){
-            if(this.getOrders().contains(order))
+    public void removeOrder(Order order) {
+        if (order.getEmployee() == this) {
+            if (this.getOrders().contains(order)) {
                 this.getOrders().remove(order);
+            }
             order.setEmployee(null);
         }
     }
