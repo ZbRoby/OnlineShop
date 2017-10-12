@@ -1,0 +1,30 @@
+package ro.msg.learning.shop.repositories;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.junit4.SpringRunner;
+import ro.msg.learning.shop.entities.ProductCategory;
+
+/**
+ * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
+ */
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
+public class ProductCategoryRepositoryTest {
+
+    @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
+    private ProductCategoryRepository repository;
+
+    @Test
+    public void findByNameTest(){
+        repository.findAll().forEach(x->Assert.assertSame("Test "+x.getName(),x,repository.findByName(x.getName())));
+    }
+}
