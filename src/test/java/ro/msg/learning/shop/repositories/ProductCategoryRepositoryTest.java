@@ -1,12 +1,13 @@
 package ro.msg.learning.shop.repositories;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
@@ -20,7 +21,7 @@ public class ProductCategoryRepositoryTest {
 
     @Test
     public void findByNameTest(){
-        repository.findAll().forEach(x->Assert.assertSame("Test "+x.getName(),x,repository.findByName(x.getName())));
-        Assert.assertTrue("Not empty", repository.findAll().size() > 0);
+        repository.findAll().forEach(x -> assertSame("Test " + x.getName(), x, repository.findByName(x.getName())));
+        assertTrue("Not empty", repository.findAll().size() > 0);
     }
 }

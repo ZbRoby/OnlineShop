@@ -11,6 +11,7 @@ import ro.msg.learning.shop.entities.ProductsLocations;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -27,8 +28,8 @@ public class ProductRepositoryTest {
     public void findByNameTest() {
         String name = "Namfix";
         Product temp = repository.findByName(name);
-        Assert.assertNotNull(temp);
-        Assert.assertTrue(temp.getName().equals(name));
+        assertNotNull(temp);
+        assertTrue(temp.getName().equals(name));
     }
 
     @Test
