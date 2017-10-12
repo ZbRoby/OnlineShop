@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.Product;
 import ro.msg.learning.shop.entities.ProductsLocations;
@@ -20,9 +19,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class ProductRepositoryTest {
-
-    @Autowired
-    private TestEntityManager entityManager;
 
     @Autowired
     private ProductRepository repository;
@@ -67,6 +63,7 @@ public class ProductRepositoryTest {
 
     @Test
     public void getQuantityForProductTest() {
-        repository.findAll().forEach(x -> Assert.assertTrue("Test " + x.getId(), x.getProductsLocations().stream().mapToLong(ProductsLocations::getQuantity).sum() == repository.getQuantityForProduct(x.getId())));
+        repository.findAll().forEach(x -> assertTrue("Test " + x.getId(), x.getProductsLocations().stream().mapToLong(ProductsLocations::getQuantity).sum() == repository.getQuantityForProduct(x.getId())));
+        assertTrue("Not empty", repository.findAll().size() > 0);
     }
 }

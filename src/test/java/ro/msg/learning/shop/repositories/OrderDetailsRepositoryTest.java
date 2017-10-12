@@ -28,6 +28,6 @@ public class OrderDetailsRepositoryTest {
     @Test
     public void findAllByOrderTest() {
         orderRepository.findAll().forEach(x -> orderDetailsRepository.findAllByOrder(x).forEach(Assert::assertNotNull));
-
+        Assert.assertTrue("Not empty",orderRepository.findAll().size()>0);
     }
 }

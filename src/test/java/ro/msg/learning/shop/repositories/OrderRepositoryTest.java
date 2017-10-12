@@ -24,9 +24,6 @@ import java.util.Map;
 public class OrderRepositoryTest {
 
     @Autowired
-    private TestEntityManager entityManager;
-
-    @Autowired
     private OrderRepository repository;
 
     private Map<Long, Long> counts;
@@ -51,16 +48,19 @@ public class OrderRepositoryTest {
     public void employeeIdWithLeastOrdersTest() {
         Long L = repository.employeeIdWithLeastOrders();
         emp.forEach(x -> Assert.assertTrue(counts.get(x) >= counts.get(L)));
+        Assert.assertTrue("Not empty",emp.size()>0);
     }
 
     @Test
     public void employeeIdWithMostOrdersTest() {
         Long M = repository.employeeIdWithMostOrders();
         emp.forEach(x -> Assert.assertTrue(counts.get(x) <= counts.get(M)));
+        Assert.assertTrue("Not empty",emp.size()>0);
     }
 
     @Test
     public void countByEmployee_IdTest() {
         emp.forEach(x -> Assert.assertTrue(counts.get(x).equals(repository.countByEmployee_Id(x))));
+        Assert.assertTrue("Not empty",emp.size()>0);
     }
 }
