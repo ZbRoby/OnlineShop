@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
@@ -20,7 +21,7 @@ public class ProductCategoryRepositoryTest {
     private ProductCategoryRepository repository;
 
     @Test
-    public void findByNameTest(){
+    public void findByNameTest() {
         repository.findAll().forEach(x -> assertSame("Test " + x.getName(), x, repository.findByName(x.getName())));
         assertTrue("Not empty", repository.findAll().size() > 0);
     }

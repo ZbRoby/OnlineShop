@@ -18,5 +18,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "Select EMPLOYEE_ID FROM ORDERS GROUP by EMPLOYEE_ID ORDER BY count(ID) DESC LIMIT 1", nativeQuery = true)
     Long employeeIdWithMostOrders();
 
-    Long countByEmployee_Id(Long id);
+    Long countByEmployeeId(Long id);
 }

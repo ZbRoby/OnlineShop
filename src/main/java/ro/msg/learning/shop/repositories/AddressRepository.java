@@ -21,5 +21,5 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
 
     List<Address> findAllByZipCode(String zipCode);
 
-    Address findByCountryAndCityAndStreet(String country,String city,String street);
+    Address findByCountryAndCityAndStreet(String country, String city, String street);
 }

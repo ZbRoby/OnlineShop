@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.repositories;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.Product;
 import ro.msg.learning.shop.entities.ProductsLocations;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>

@@ -59,8 +59,8 @@ public class OrderRepositoryTest {
     }
 
     @Test
-    public void countByEmployee_IdTest() {
-        emp.forEach(x -> assertTrue(counts.get(x).equals(repository.countByEmployee_Id(x))));
+    public void countByEmployeeIdTest() {
+        emp.forEach(x -> assertTrue(counts.get(x).equals(repository.countByEmployeeId(x))));
         assertTrue("Not empty", emp.size() > 0);
     }
 }
