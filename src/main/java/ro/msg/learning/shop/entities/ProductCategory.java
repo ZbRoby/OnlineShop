@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "PRODUCT_CATEGORIES")
-@ToString(exclude = {"products", "mainCategory"})
+@ToString(doNotUseGetters = true)
 public class ProductCategory implements Serializable {
 
     @Id
@@ -30,7 +30,6 @@ public class ProductCategory implements Serializable {
     private String name;
 
     @OneToOne
-    @JsonProperty("MainCategoryID")
     private ProductCategory mainCategory;
 
     @JsonIgnore
@@ -47,16 +46,16 @@ public class ProductCategory implements Serializable {
 
     public void addProduct(Product product){
         if(product.getCategory()==null){
-            if(!this.products.contains(product))
-                this.products.add(product);
+            if(!getProducts().contains(product))
+                getProducts().add(product);
             product.setCategory(this);
         }
     }
 
     public void removeProduct(Product product){
         if(product.getCategory()==this) {
-            if(this.products.contains(product))
-                this.products.remove(product);
+            if(getProducts().contains(product))
+                getProducts().remove(product);
             product.setCategory(null);
         }
     }

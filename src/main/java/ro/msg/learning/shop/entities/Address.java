@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Addresses")
-@ToString(exclude = {"locations", "orders"})
+@ToString(doNotUseGetters = true)
 public class Address implements Serializable {
 
     @Id
@@ -40,12 +40,12 @@ public class Address implements Serializable {
     @Column(name = "Other", nullable = true, unique = false)
     private String other;
 
-    @OneToMany(mappedBy = "address")
     @JsonIgnore
+    @OneToMany(mappedBy = "address")
     private List<Location> locations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "address")
     @JsonIgnore
+    @OneToMany(mappedBy = "address")
     private List<Order> orders = new ArrayList<>();
 
     public Address() {
@@ -61,8 +61,8 @@ public class Address implements Serializable {
 
     public void addOrder(Order order) {
         if (order.getAddress() == null) {
-            if (!this.orders.contains(order)) {
-                this.orders.add(order);
+            if (!this.getOrders().contains(order)) {
+                this.getOrders().add(order);
             }
             order.setAddress(this);
         }
@@ -70,8 +70,8 @@ public class Address implements Serializable {
 
     public void removeOrder(Order order) {
         if (order.getAddress() == this) {
-            if (this.orders.contains(order)) {
-                this.orders.remove(order);
+            if (this.getOrders().contains(order)) {
+                this.getOrders().remove(order);
             }
             order.setAddress(null);
         }
@@ -79,8 +79,8 @@ public class Address implements Serializable {
 
     public void addLocation(Location location) {
         if (location.getAddress() == null) {
-            if (!this.locations.contains(location)) {
-                this.locations.add(location);
+            if (!this.getLocations().contains(location)) {
+                this.getLocations().add(location);
             }
             location.setAddress(this);
         }
@@ -88,8 +88,8 @@ public class Address implements Serializable {
 
     public void removeLocation(Location location) {
         if (location.getAddress() == this) {
-            if (this.locations.contains(location)) {
-                this.locations.remove(location);
+            if (this.getLocations().contains(location)) {
+                this.getLocations().remove(location);
             }
             location.setAddress(null);
         }

@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @Table(name = "ORDERS")
 @Entity
-@ToString(exclude = {"customer", "employee", "address", "ordersDetails"})
+@ToString(doNotUseGetters = true)
 public class Order implements Serializable {
 
     @Id
@@ -34,15 +34,12 @@ public class Order implements Serializable {
     private Date orderDate;
 
     @ManyToOne
-    @JsonIgnore
     private Customer customer;
 
     @ManyToOne
-    @JsonIgnore
     private Employee employee;
 
     @ManyToOne
-    @JsonIgnore
     private Address address;
 
     @JsonIgnore
@@ -62,16 +59,16 @@ public class Order implements Serializable {
 
     public void addOrderDetail(OrderDetails orderDetails){
         if(orderDetails.getOrder()==null){
-            if(!this.ordersDetails.contains(orderDetails))
-                this.ordersDetails.add(orderDetails);
+            if(!this.getOrdersDetails().contains(orderDetails))
+                this.getOrdersDetails().add(orderDetails);
             orderDetails.setOrder(this);
         }
     }
 
     public void removeOrderDetail(OrderDetails orderDetails){
         if(orderDetails.getOrder()==this){
-            if(this.ordersDetails.contains(orderDetails))
-                this.ordersDetails.remove(orderDetails);
+            if(this.getOrdersDetails().contains(orderDetails))
+                this.getOrdersDetails().remove(orderDetails);
             orderDetails.setOrder(null);
         }
     }

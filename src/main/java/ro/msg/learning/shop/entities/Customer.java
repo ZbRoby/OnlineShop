@@ -17,7 +17,7 @@ import java.util.List;
 @Data()
 @Table(name = "CUSTOMERS")
 @Entity
-@ToString(exclude = "orders")
+@ToString(doNotUseGetters = true)
 public class Customer implements Serializable {
 
     @Id
@@ -38,8 +38,8 @@ public class Customer implements Serializable {
     @Column(name = "Password", nullable = false, unique = false)
     private String password;
 
-    @OneToMany(mappedBy = "customer")
     @JsonIgnore
+    @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 
     public Customer() {
@@ -54,16 +54,16 @@ public class Customer implements Serializable {
 
     public void addOrder(Order order){
         if(order.getCustomer()==null){
-            if(!this.orders.contains(order))
-                this.orders.add(order);
+            if(!this.getOrders().contains(order))
+                this.getOrders().add(order);
             order.setCustomer(this);
         }
     }
 
     public void removeOrder(Order order){
         if(order.getCustomer()==this){
-            if(this.orders.contains(order))
-                this.orders.remove(order);
+            if(this.getOrders().contains(order))
+                this.getOrders().remove(order);
             order.setCustomer(null);
         }
     }

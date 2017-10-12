@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -11,10 +10,11 @@ import java.io.Serializable;
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
+
 @Data
 @Entity
 @Table(name = "PRODUCTS_LOCATIONS")
-@ToString(exclude = {"location", "product"})
+@ToString(doNotUseGetters = true)
 public class ProductsLocations implements Serializable {
 
     @Id
@@ -29,12 +29,10 @@ public class ProductsLocations implements Serializable {
     @JsonProperty("Quantity")
     private long quantity;
 
-    @JsonIgnore
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "Product_ID", referencedColumnName = "ID")
     private Product product;
 
-    @JsonIgnore
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "Location_ID", referencedColumnName = "ID")
     private Location location;

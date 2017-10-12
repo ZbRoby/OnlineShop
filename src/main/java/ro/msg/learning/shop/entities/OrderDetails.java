@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @Table(name = "ORDER_DETAILS")
 @Entity
-@ToString(exclude = {"product", "order"})
+@ToString(doNotUseGetters = true)
 public class OrderDetails implements Serializable {
 
     @Id
@@ -33,11 +33,9 @@ public class OrderDetails implements Serializable {
     private double unitPrice;
 
     @OneToOne
-    @JsonProperty("ProductID")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonProperty("Order_ID")
+    @ManyToOne
     private Order order;
 
     public OrderDetails() {

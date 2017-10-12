@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 import ro.msg.learning.shop.entities.enums.DistanceUnit;
 import ro.msg.learning.shop.entities.enums.MassUnit;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "PRODUCT_DETAILS")
+@ToString(doNotUseGetters = true)
 public class ProductDetails implements Serializable {
 
     @Id

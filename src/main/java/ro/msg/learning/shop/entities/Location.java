@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Table(name = "LOCATIONS")
 @Entity
-@ToString(exclude = {"productsLocations", "address"})
+@ToString(doNotUseGetters = true)
 public class Location implements Serializable {
 
     @Id
@@ -28,7 +28,6 @@ public class Location implements Serializable {
     private long id;
 
     @ManyToOne
-    @JsonIgnore
     private Address address;
 
     @JsonIgnore
@@ -50,20 +49,28 @@ public class Location implements Serializable {
             temp.setLocationId(this.getId());
             temp.setProductId(product.getId());
             temp.setQuantity(quantity);
+            getProductsLocations().add(temp);
         }
 
     }
 
     public void removeProduct(Product product) {
-        productsLocations.stream().filter(x -> x.getProduct() == product).forEach(productsLocations::remove);
+        getProductsLocations().stream().filter(x -> x.getProduct() == product).forEach(getProductsLocations()::remove);
     }
 
     public Long getQuantity(Product product) {
-        final Optional<ProductsLocations> temp = productsLocations.stream().filter(x -> x.getProduct() == product).findFirst();
+        final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getProduct() == product).findFirst();
         if (temp.isPresent()) {
             return temp.get().getQuantity();
         } else {
             return null;
+        }
+    }
+
+    public void setQuantity(Product product, long quantity) {
+        final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getProduct() == product).findFirst();
+        if (temp.isPresent()) {
+            temp.get().setQuantity(quantity);
         }
     }
 }

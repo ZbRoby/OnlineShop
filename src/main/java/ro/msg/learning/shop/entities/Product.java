@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Entity
 @Table(name = "PRODUCTS")
-@ToString(exclude = {"category", "productsLocations"})
+@ToString(doNotUseGetters = true)
 public class Product implements Serializable {
 
     @Id
@@ -43,11 +43,9 @@ public class Product implements Serializable {
     private double price;
 
     @OneToOne
-    @JsonProperty("Details_ID")
     private ProductDetails productDetails;
 
     @ManyToOne
-    @JsonIgnore
     private ProductCategory category;
 
     @JsonIgnore
@@ -68,26 +66,34 @@ public class Product implements Serializable {
     }
 
     public void addLocation(Location location, long quantity) {
-        if (!productsLocations.stream().anyMatch(x -> x.getLocation() == location)) {
+        if (!getProductsLocations().stream().anyMatch(x -> x.getLocation() == location)) {
             ProductsLocations temp = new ProductsLocations();
             temp.setLocation(location);
             temp.setProduct(this);
             temp.setLocationId(location.getId());
             temp.setProductId(this.getId());
             temp.setQuantity(quantity);
+            getProductsLocations().add(temp);
         }
     }
 
     public void removeLocation(Location location) {
-        productsLocations.stream().filter(x -> x.getLocation() == location).forEach(productsLocations::remove);
+        this.getProductsLocations().stream().filter(x -> x.getLocation() == location).forEach(getProductsLocations()::remove);
     }
 
     public Long getQuantity(Location location) {
-        final Optional<ProductsLocations> temp = productsLocations.stream().filter(x -> x.getLocation() == location).findFirst();
+        final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getLocation() == location).findFirst();
         if (temp.isPresent()) {
             return temp.get().getQuantity();
         } else {
             return null;
+        }
+    }
+
+    public void setQuantity(Location location, long quantity) {
+        final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getLocation() == location).findFirst();
+        if (temp.isPresent()) {
+            temp.get().setQuantity(quantity);
         }
     }
 }
