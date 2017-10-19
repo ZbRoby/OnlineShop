@@ -24,7 +24,7 @@ public class OrderDetails implements Serializable {
     private long id;
     @JsonProperty("Quantity")
     @Column(name = "Quantity", nullable = true, unique = false)
-    private short quantity;
+    private Long quantity;
     @JsonProperty("Discount")
     @Column(name = "Discount", nullable = false, unique = false)
     private double discount;
@@ -41,10 +41,10 @@ public class OrderDetails implements Serializable {
     public OrderDetails() {
     }
 
-    public OrderDetails(short quantity, double discount, double unitPrice, Product product) {
+    public OrderDetails(Long quantity, double discount, Product product) {
         this.quantity = quantity;
         this.discount = discount;
-        this.unitPrice = unitPrice;
+        this.unitPrice = product.getPrice() * (1 - discount / 100);
         this.product = product;
     }
 
