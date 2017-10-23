@@ -27,13 +27,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT COALESCE( (SELECT sum(QUANTITY) FROM PRODUCTS_LOCATIONS where PRODUCT_ID=?1 GROUP BY PRODUCT_ID), 0)", nativeQuery = true)
     Long getQuantityForProduct(Long id);
 
-    @Query(value = "select pl from ProductsLocations pl where pl.id.productId in :set")
+    @Query(value = "select pl from ProductsLocations pl where pl.id.productId in :set order by pl.id.locationId")
     List<ProductsLocations> findAllProductsLocationsInSet(@Param("set") Set<Long> productIdList);
 
     @Modifying
     @Query(value = "UPDATE PRODUCTS_LOCATIONS SET QUANTITY=QUANTITY-?3 WHERE LOCATION_ID=?1 AND PRODUCT_ID=?2", nativeQuery = true)
     void changeTheQuantity(Long locationId, Long productId, Long quantity);
-
 
 
 }

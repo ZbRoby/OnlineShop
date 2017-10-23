@@ -55,18 +55,20 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    public void addOrder(Order order){
-        if(order.getCustomer()==null){
-            if(!this.getOrders().contains(order))
+    public void addOrder(Order order) {
+        if (order.getCustomer() == null) {
+            if (!this.getOrders().contains(order)) {
                 this.getOrders().add(order);
+            }
             order.setCustomer(this);
         }
     }
 
-    public void removeOrder(Order order){
-        if(order.getCustomer()==this){
-            if(this.getOrders().contains(order))
+    public void removeOrder(Order order) {
+        if (order.getCustomer() == this) {
+            if (this.getOrders().contains(order)) {
                 this.getOrders().remove(order);
+            }
             order.setCustomer(null);
         }
     }
