@@ -4,6 +4,8 @@ import lombok.Data;
 import ro.msg.learning.shop.entities.Address;
 
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,12 +24,15 @@ public class OrderInput {
         this.address = address;
     }
 
-    public OrderInput() {
+    public OrderInput(List<Long> productList, List<Long> quantityList, Date date, Address address) {
+        this.productMap = new HashMap<>();
+        for (int i = 0; i < productList.size(); i++) {
+            this.productMap.put(productList.get(i), quantityList.get(i));
+        }
+        this.date = date;
+        this.address = address;
     }
 
-    public OrderInput(OrderInput orderInput) {
-        this.productMap = orderInput.getProductMap();
-        this.date = orderInput.getDate();
-        this.address = orderInput.getAddress();
+    public OrderInput() {
     }
 }

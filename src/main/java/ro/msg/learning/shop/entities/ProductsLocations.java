@@ -66,22 +66,4 @@ public class ProductsLocations implements Serializable {
 
 }
 
-@Data
-@Embeddable
-class ProductLocationId implements Serializable {
-
-    @Column(name = "Product_ID")
-    private Long productId;
-    @Column(name = "Location_ID")
-    private Long locationId;
-
-    public ProductLocationId() {
-    }
-
-    public ProductLocationId(Long productId, Long locationId) {
-        this.productId = productId;
-        this.locationId = locationId;
-    }
-}
-
 
