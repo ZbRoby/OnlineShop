@@ -20,11 +20,10 @@ public class GreedyQS implements QuantityStrategy {
             Long temp = productList.get(productsLocations.getProductId());
             if (temp != null) {
                 if (productsLocations.getQuantity() - temp >= 0) {
-                    productsLocations.setQuantity(temp);
-                    usedGroup.add(productsLocations);
+                    usedGroup.add(new ProductsLocations(productsLocations.getProductId(), productsLocations.getLocationId(), temp));
                     productList.remove(productsLocations.getProductId());
                 } else {
-                    usedGroup.add(productsLocations);
+                    usedGroup.add(new ProductsLocations(productsLocations.getProductId(), productsLocations.getLocationId(), productsLocations.getQuantity()));
                     productList.put(productsLocations.getProductId(), temp - productsLocations.getQuantity());
                 }
             }
