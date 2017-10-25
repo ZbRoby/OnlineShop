@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.services.strategy;
+package ro.msg.learning.shop.services.strategies;
 
 import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.exceptions.NoSingleLocationFoundException;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
- * Single location: find a single location that has all the required products (with the required quantities) in stock.
+ * Single location: find services single location that has all the required products (with the required quantities) in stock.
  */
 public class SingleLocationQS implements QuantityStrategy {
 
@@ -37,7 +37,7 @@ public class SingleLocationQS implements QuantityStrategy {
         if (tempNumberProd == 0) {
             return tempLocationId;
         } else {
-            return -1;
+            throw new NoSingleLocationFoundException();
         }
     }
 
@@ -49,12 +49,8 @@ public class SingleLocationQS implements QuantityStrategy {
                 usedGroup.add(new ProductsLocations(productsLocations.getProductId(), productsLocations.getLocationId(), productsLocations.getQuantity()));
             }
         }
+
         final long finalTempLocationId = getLocationId(productList.size(), usedGroup);
-        usedGroup = usedGroup.stream().filter(x -> x.getLocationId() == finalTempLocationId).collect(Collectors.toList());
-        if (usedGroup.isEmpty()) {
-            throw new NoSingleLocationFoundException();
-        } else {
-            return usedGroup;
-        }
+        return usedGroup.stream().filter(x -> x.getLocationId() == finalTempLocationId).collect(Collectors.toList());
     }
 }

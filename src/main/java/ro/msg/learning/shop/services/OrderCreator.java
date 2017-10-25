@@ -9,12 +9,10 @@ import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
 import ro.msg.learning.shop.model.OrderInput;
 import ro.msg.learning.shop.repositories.*;
-import ro.msg.learning.shop.services.strategy.QuantityStrategy;
+import ro.msg.learning.shop.services.strategies.QuantityStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -29,15 +27,17 @@ public class OrderCreator {
     private final CustomerRepository customerRepository;
     private final EmployeeRepository employeeRepository;
     private final AddressRepository addressRepository;
+    private final QuantityStrategy quantityStrategy;
 
 
     @Autowired
-    public OrderCreator(OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository, AddressRepository addressRepository) {
+    public OrderCreator(OrderRepository orderRepository, ProductRepository productRepository, CustomerRepository customerRepository, EmployeeRepository employeeRepository, AddressRepository addressRepository, QuantityStrategy quantityStrategy) {
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
         this.customerRepository = customerRepository;
         this.employeeRepository = employeeRepository;
         this.addressRepository = addressRepository;
+        this.quantityStrategy = quantityStrategy;
     }
 
     private ArrayList<OrderDetails> getOrderDetails(OrderInput orderInput) {
@@ -66,7 +66,7 @@ public class OrderCreator {
     }
 
     @Transactional
-    public Order createOrder(OrderInput orderInput, QuantityStrategy quantityStrategy) {
+    public Order createOrder(OrderInput orderInput) {
 
         Order order = new Order();
 
@@ -80,8 +80,7 @@ public class OrderCreator {
             getLocations(orderInput.getProductMap(), productRepository.
                 findAllProductsLocationsInSet(orderInput.getProductMap().keySet()));
 
-        //locations.forEach(x-> productRepository.changeTheQuantity(x.getLocationId(),x.getProductId(),x.getQuantity()));//TODO uncomment this when all of the strategies are done!
-        Logger.getLogger(quantityStrategy.getClass().getName().split("\\.")[6]).log(Level.INFO, locations::toString);//TODO delete this when all of the strategies are done!
+        locations.forEach(x -> productRepository.changeTheQuantity(x.getLocationId(), x.getProductId(), x.getQuantity()));
 
         return orderRepository.save(order);
     }

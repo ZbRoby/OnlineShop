@@ -1,7 +1,8 @@
-package ro.msg.learning.shop.services.strategy;
+package ro.msg.learning.shop.services.strategies;
 
 import ro.msg.learning.shop.entities.ProductsLocations;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,11 @@ public class GreedyQS implements QuantityStrategy {
                 }
             }
         }
-        return usedGroup;
+
+        if (productList.isEmpty()) {
+            return usedGroup;
+        } else {
+            throw new InvalidParameterException("productList= could not get the quantity for all products from the locationAndProduct=");
+        }
     }
 }

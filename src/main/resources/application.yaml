@@ -19,3 +19,5 @@ spring:
     data.rest.base-path: /rest
 
     main.web-environment: false
+
+onlineShop.strategies.quantityStrategyType: MOSTABUNDANT
