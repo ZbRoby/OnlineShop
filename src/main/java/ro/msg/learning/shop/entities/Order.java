@@ -43,7 +43,7 @@ public class Order implements Serializable {
     private Address address;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     private List<OrderDetails> ordersDetails = new ArrayList<>();
 
     public Order() {
