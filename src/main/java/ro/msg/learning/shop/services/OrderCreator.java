@@ -67,8 +67,9 @@ public class OrderCreator {
     public Order createOrder(OrderInput orderInput) {
 
         Order order = new Order();
-
-        order.setOrdersDetails(getOrderDetails(orderInput));
+        for (OrderDetails orderDetail : getOrderDetails(orderInput)) {
+            order.addOrderDetail(orderDetail);
+        }
         order.setOrderDate(orderInput.getDate());
         order.setAddress(getAddress(orderInput));
         order.setCustomer(customerRepository.findAll().get(0));//TODO add customer by getting the logged customer
