@@ -30,6 +30,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select pl from ProductsLocations pl where pl.id.productId in :set order by pl.id.locationId")
     List<ProductsLocations> findAllProductsLocationsInSet(@Param("set") Set<Long> productIdList);
 
+    @Query(value = "select pl from ProductsLocations pl where pl.id.locationId = :locationId order by pl.id.locationId")
+    List<ProductsLocations> findAllProductsLocationsWithLocationId(@Param("locationId") long locationId);
+
+    @Query(value = "select pl from ProductsLocations pl order by pl.id.locationId")
+    List<ProductsLocations> findAllProductsLocations();
+
     @Modifying
     @Query(value = "UPDATE PRODUCTS_LOCATIONS SET QUANTITY=QUANTITY-?3 WHERE LOCATION_ID=?1 AND PRODUCT_ID=?2", nativeQuery = true)
     void changeTheQuantity(Long locationId, Long productId, Long quantity);
