@@ -27,7 +27,8 @@ public class ShopApplicationConfig {
                 return new MostAbundantQS();
             case SINGLELOCATION:
                 return new SingleLocationQS();
+            default:
+                throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
     }
 }

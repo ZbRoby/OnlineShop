@@ -38,7 +38,8 @@ public class SingleLocationsQSTest {
         List<ProductsLocations> productsLocations = new ArrayList<>();
         productsLocations.add(new ProductsLocations(1L, 7L, 1L));
         productsLocations.add(new ProductsLocations(2L, 7L, 2L));
-        quantityStrategy.getLocations(hashMap, productsLocations);
+
+        Assert.assertEquals(productsLocations, quantityStrategy.getLocations(hashMap, productsLocations));
     }
 
     @Test

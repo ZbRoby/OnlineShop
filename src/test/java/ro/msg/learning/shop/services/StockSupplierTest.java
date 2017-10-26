@@ -26,12 +26,12 @@ import static org.mockito.Mockito.when;
 public class StockSupplierTest {
 
     @InjectMocks
-    StockSupplier stockSupplier;
+    private StockSupplier stockSupplier;
 
     @Mock
-    ProductRepository mockProductRepository;
+    private ProductRepository mockProductRepository;
 
-    List<ProductsLocations> productsLocationsList;
+    private List<ProductsLocations> productsLocationsList;
 
     @Before
     public void setUp() {
