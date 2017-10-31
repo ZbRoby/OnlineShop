@@ -51,6 +51,8 @@ public class SingleLocationQS implements QuantityStrategy {
         }
 
         final long finalTempLocationId = getLocationId(productList.size(), usedGroup);
-        return usedGroup.stream().filter(x -> x.getLocationId() == finalTempLocationId).collect(Collectors.toList());
+        usedGroup = usedGroup.stream().filter(x -> x.getLocationId() == finalTempLocationId).collect(Collectors.toList());
+        usedGroup.forEach(x -> x.setQuantity(productList.get(x.getProductId())));
+        return usedGroup;
     }
 }
