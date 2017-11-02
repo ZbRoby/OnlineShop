@@ -34,26 +34,26 @@ insert into ADDRESSES (ID, COUNTRY, CITY, STREET, ZIP_CODE, OTHER) values (20, '
 
 -- CUSTOMERS
 
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (1, 'Schuyler', 'Meaders', 'jvCWeO5v', 'smeaders0');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (2, 'Liuka', 'Chieco', 'soJN0FBw', 'lchieco1');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (3, 'Massimo', 'Backen', 'bUFzeF', 'mbacken2');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (4, 'Mair', 'Rowter', 'joYvIP', 'mrowter3');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (5, 'Vance', 'Keegan', 'SxvyMThvX', 'vkeegan4');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (6, 'Petrina', 'Holby', '8PJscrLQNc1', 'pholby5');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (7, 'Cherin', 'Clendening', 'Sr2OK7Q', 'cclendening6');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (8, 'Ursula', 'Blayd', 'keB7ce', 'ublayd7');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (9, 'Reynold', 'Yansons', 'pqs9KYgsJXV', 'ryansons8');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (10, 'Benedicta', 'Farrent', 'Vr0Cbe4ZJ5Pg', 'bfarrent9');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (11, 'Earle', 'Tarbert', 'upJYZg', 'etarberta');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (12, 'Stefan', 'Hyder', 'GyBeOH3g', 'shyderb');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (13, 'Anatola', 'Annell', 'lxEfu8wDou', 'aannellc');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (14, 'Cathy', 'Tucker', 'jWMFrNz', 'ctuckerd');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (15, 'Mayne', 'Merwe', 'Fj4ucluf9Mb7', 'mmerwee');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (16, 'Lonnie', 'Parnaby', 'RcQx6fG', 'lparnabyf');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (17, 'Wallache', 'Dibley', 'ewi4BJ', 'wdibleyg');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (18, 'Teodorico', 'Tett', 'sO5e5ZP', 'ttetth');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (19, 'Cristal', 'Glossup', 'f2Z4hVEVogU', 'cglossupi');
-insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME) values (20, 'Lexine', 'Belin', 'Nwo1IrM', 'lbelinj');
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (1, 'Schuyler', 'Meaders', 'jvCWeO5v', 'smeaders0',1);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (2, 'Liuka', 'Chieco', 'soJN0FBw', 'lchieco1',2);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (3, 'Massimo', 'Backen', 'bUFzeF', 'mbacken2',5);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (4, 'Mair', 'Rowter', 'joYvIP', 'mrowter3',10);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (5, 'Vance', 'Keegan', 'SxvyMThvX', 'vkeegan4',11);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (6, 'Petrina', 'Holby', '8PJscrLQNc1', 'pholby5',5);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (7, 'Cherin', 'Clendening', 'Sr2OK7Q', 'cclendening6',7);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (8, 'Ursula', 'Blayd', 'keB7ce', 'ublayd7',13);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (9, 'Reynold', 'Yansons', 'pqs9KYgsJXV', 'ryansons8',9);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (10, 'Benedicta', 'Farrent', 'Vr0Cbe4ZJ5Pg', 'bfarrent9',10);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (11, 'Earle', 'Tarbert', 'upJYZg', 'etarberta',11);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (12, 'Stefan', 'Hyder', 'GyBeOH3g', 'shyderb',10);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (13, 'Anatola', 'Annell', 'lxEfu8wDou', 'aannellc',1);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (14, 'Cathy', 'Tucker', 'jWMFrNz', 'ctuckerd',13);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (15, 'Mayne', 'Merwe', 'Fj4ucluf9Mb7', 'mmerwee',12);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (16, 'Lonnie', 'Parnaby', 'RcQx6fG', 'lparnabyf',17);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (17, 'Wallache', 'Dibley', 'ewi4BJ', 'wdibleyg',9);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (18, 'Teodorico', 'Tett', 'sO5e5ZP', 'ttetth',1);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (19, 'Cristal', 'Glossup', 'f2Z4hVEVogU', 'cglossupi',2);
+insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME, PASSWORD, USERNAME,ADDRESS_ID) values (20, 'Lexine', 'Belin', 'Nwo1IrM', 'lbelinj',8);
 
 -- EMPLOYEES
 
