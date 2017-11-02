@@ -1,5 +1,6 @@
 package ro.msg.learning.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -35,6 +36,7 @@ public class OrderDetails implements Serializable {
     @OneToOne
     private Product product;
 
+    @JsonIgnore
     @ManyToOne
     private Order order;
 

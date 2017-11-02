@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -19,6 +20,7 @@ import java.util.List;
 @Table(name = "EMPLOYEES")
 @Entity
 @ToString(doNotUseGetters = true)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee implements Serializable {
 
     @Id

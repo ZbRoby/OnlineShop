@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
@@ -42,8 +41,7 @@ public class Order implements Serializable {
     @OneToOne
     private Address address;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> ordersDetails = new ArrayList<>();
 
     public Order() {
