@@ -3,6 +3,7 @@ package ro.msg.learning.shop.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.entities.Product;
+import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.entities.enums.ProductStatus;
 import ro.msg.learning.shop.model.ShelfProduct;
 import ro.msg.learning.shop.repositories.ProductRepository;
@@ -24,7 +25,7 @@ public class ProductPresenter {
     }
 
     private static void setStatus(ShelfProduct shelfProduct) {
-        if (shelfProduct.getProduct().getProductsLocations().isEmpty()) {
+        if (shelfProduct.getProduct().getProductsLocations().stream().mapToLong(ProductsLocations::getQuantity).sum() == 0) {
             shelfProduct.setProductStatus(ProductStatus.OUT_OF_STOCK);
         } else {
             shelfProduct.setProductStatus(ProductStatus.IN_STOCK);
