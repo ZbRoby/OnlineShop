@@ -62,7 +62,7 @@ public class StockSupplierTest {
     public void emptyProductMap() {
         List<ProductsLocations> actual = productsLocationsList;
         stockSupplier.addStock(new HashMap<Long, Long>());
-        Assert.assertEquals(actual,productsLocationsList);
+        Assert.assertEquals(actual, productsLocationsList);
     }
 
     @Test

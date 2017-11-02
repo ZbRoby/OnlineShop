@@ -7,7 +7,10 @@ import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.repositories.ProductRepository;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>

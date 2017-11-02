@@ -33,7 +33,7 @@ public class GreedyQS implements QuantityStrategy {
         if (productList.isEmpty()) {
             return usedGroup;
         } else {
-            throw new InvalidParameterException("productList= could not get the quantity for all products from the locationAndProduct=");
+            throw new InvalidParameterException("productList could not get the quantity for all products from the locationAndProduct");
         }
     }
 }

@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- *
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
- * */
+ */
 
 @SpringBootApplication
 @ComponentScan(basePackages = "ro.msg.learning.shop")
