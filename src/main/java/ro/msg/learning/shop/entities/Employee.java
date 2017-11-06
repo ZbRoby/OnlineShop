@@ -19,7 +19,7 @@ import java.util.List;
 @Data
 @Table(name = "EMPLOYEES")
 @Entity
-@ToString(doNotUseGetters = true)
+@ToString(doNotUseGetters = true, exclude = "orders")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Employee implements Serializable {
 

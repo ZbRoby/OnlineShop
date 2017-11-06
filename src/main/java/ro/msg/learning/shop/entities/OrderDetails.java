@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @Table(name = "ORDER_DETAILS")
 @Entity
-@ToString(doNotUseGetters = true)
+@ToString(doNotUseGetters = true, exclude = "order")
 public class OrderDetails implements Serializable {
 
     @Id

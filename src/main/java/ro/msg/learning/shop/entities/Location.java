@@ -18,7 +18,7 @@ import java.util.Optional;
 @Data
 @Table(name = "LOCATIONS")
 @Entity
-@ToString(doNotUseGetters = true)
+@ToString(doNotUseGetters = true, exclude = "productsLocations")
 public class Location implements Serializable {
 
     @Id

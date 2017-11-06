@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "PRODUCT_CATEGORIES")
-@ToString(doNotUseGetters = true)
+@ToString(doNotUseGetters = true, exclude = "products")
 public class ProductCategory implements Serializable {
 
     @Id

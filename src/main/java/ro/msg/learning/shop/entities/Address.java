@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Addresses")
-@ToString(doNotUseGetters = true)
+@ToString(doNotUseGetters = true, exclude = "customers")
 public class Address implements Serializable {
 
     @Id
