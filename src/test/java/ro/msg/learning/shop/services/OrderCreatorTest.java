@@ -78,7 +78,7 @@ public class OrderCreatorTest {
             );
         when(mockProductRepository.findOne(anyLong())).thenAnswer(
             (Answer<Product>) invocation -> {
-                if (productsLocationsList.stream().anyMatch(x -> x.getProductId() == invocation.getArguments()[0])) {
+                if (productsLocationsList.stream().anyMatch(x -> x.getProductId().equals(invocation.getArguments()[0]))) {
                     return new Product();
                 } else {
                     return null;
@@ -87,7 +87,7 @@ public class OrderCreatorTest {
         );
         when(mockProductRepository.getQuantityForProduct(anyLong())).thenAnswer(
             (Answer<Long>) invocation -> productsLocationsList.stream().
-                filter(x -> x.getProductId() == invocation.getArguments()[0]).
+                filter(x -> x.getProductId().equals(invocation.getArguments()[0])).
                 mapToLong(ProductsLocations::getQuantity).sum()
         );
     }
