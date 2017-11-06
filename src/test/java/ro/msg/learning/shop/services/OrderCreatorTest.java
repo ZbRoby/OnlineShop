@@ -128,10 +128,7 @@ public class OrderCreatorTest {
         Address address = new Address("country", "city", "street", "zipCode", "other");
         OrderInput orderInput = new OrderInput(new HashMap<>(), null, address);
         Order actual = orderCreator.createOrder(orderInput);
-        Order expected = new Order();
-        expected.setOrdersDetails(new ArrayList<>());
-        expected.setAddress(address);
-        Assert.assertEquals(expected, actual);
+        Assert.assertEquals(0, actual.getOrdersDetails().size());
     }
 
     @Test
