@@ -13,7 +13,7 @@ import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
- *     Rest Controller Advice for handling the exceptions raised by the services
+ * Rest Controller Advice for handling the exceptions raised by the services
  */
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {

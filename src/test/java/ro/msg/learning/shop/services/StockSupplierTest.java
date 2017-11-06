@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 import ro.msg.learning.shop.entities.ProductsLocations;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.mockito.Matchers.anySet;
 import static org.mockito.Mockito.when;
 
 /**
@@ -33,9 +33,7 @@ public class StockSupplierTest {
 
     private List<ProductsLocations> productsLocationsList;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    private void setUpProductsLocationsList() {
         productsLocationsList = new ArrayList<>();
         productsLocationsList.add(new ProductsLocations(10L, 10L, 15L));
         productsLocationsList.add(new ProductsLocations(17L, 10L, 15L));
@@ -50,7 +48,10 @@ public class StockSupplierTest {
         productsLocationsList.add(new ProductsLocations(16L, 20L, 24L));
         productsLocationsList.add(new ProductsLocations(16L, 20L, 19L));
         productsLocationsList.add(new ProductsLocations(12L, 20L, 24L));
-        when(mockProductRepository.findAllProductsLocationsInSet(anySet())).
+    }
+
+    private void setUpMockProductRepository() {
+        when(mockProductRepository.findAllProductsLocationsInSet(Mockito.anySetOf(Long.class))).
             thenAnswer(
                 (Answer<List<ProductsLocations>>) invocation ->
                     productsLocationsList.stream().filter(x -> ((Set) invocation.getArguments()[0]).
@@ -58,16 +59,23 @@ public class StockSupplierTest {
             );
     }
 
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        setUpProductsLocationsList();
+        setUpMockProductRepository();
+    }
+
     @Test
-    public void emptyProductMap() {
+    public void emptyProductMapTest() {
         List<ProductsLocations> actual = productsLocationsList;
-        stockSupplier.addStock(new HashMap<Long, Long>());
+        stockSupplier.addStock(new HashMap<>());
         Assert.assertEquals(actual, productsLocationsList);
     }
 
     @Test
-    public void correctProductMapWithNoDuplicate() {
-        HashMap<Long, Long> productMap = new HashMap<Long, Long>();
+    public void correctProductMapWithNoDuplicateTest() {
+        HashMap<Long, Long> productMap = new HashMap<>();
         productMap.put(14L, 29L);
         productMap.put(20L, 19L);
         productMap.put(11L, 21L);
@@ -80,8 +88,8 @@ public class StockSupplierTest {
     }
 
     @Test
-    public void correctProductMapWithDuplicate() {
-        HashMap<Long, Long> productMap = new HashMap<Long, Long>();
+    public void correctProductMapWithDuplicateTest() {
+        HashMap<Long, Long> productMap = new HashMap<>();
         productMap.put(16L, 29L);
         productMap.put(20L, 19L);
         productMap.put(11L, 21L);
@@ -94,8 +102,8 @@ public class StockSupplierTest {
     }
 
     @Test(expected = ProductNotFoundException.class)
-    public void incorrectProductMap() {
-        HashMap<Long, Long> productMap = new HashMap<Long, Long>();
+    public void incorrectProductMapTest() {
+        HashMap<Long, Long> productMap = new HashMap<>();
         productMap.put(14L, 29L);
         productMap.put(20L, 19L);
         productMap.put(11L, 21L);
