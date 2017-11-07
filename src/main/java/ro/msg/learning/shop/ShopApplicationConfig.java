@@ -33,9 +33,9 @@ public class ShopApplicationConfig {
         switch (quantityStrategyType) {
             case GREEDY:
                 return new GreedyQS();
-            case MOSTABUNDANT:
+            case MOST_ABUNDANT:
                 return new MostAbundantQS();
-            case SINGLELOCATION:
+            case SINGLE_LOCATION:
                 return new SingleLocationQS();
             default:
                 throw new IllegalArgumentException();
