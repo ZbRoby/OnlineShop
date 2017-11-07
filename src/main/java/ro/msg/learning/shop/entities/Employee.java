@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import ro.msg.learning.shop.entities.enums.Title;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @ToString(doNotUseGetters = true, exclude = "orders")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@EqualsAndHashCode(doNotUseGetters = true, exclude = "orders")
 public class Employee implements Serializable {
 
     @Id

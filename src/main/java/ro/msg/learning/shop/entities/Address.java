@@ -3,6 +3,7 @@ package ro.msg.learning.shop.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "Addresses")
 @ToString(doNotUseGetters = true, exclude = "customers")
+@EqualsAndHashCode(doNotUseGetters = true, exclude = "customers")
 public class Address implements Serializable {
 
     @Id

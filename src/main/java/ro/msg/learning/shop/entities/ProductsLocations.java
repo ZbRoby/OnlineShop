@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PRODUCTS_LOCATIONS")
 @ToString(doNotUseGetters = true, exclude = {"product", "location"})
+@EqualsAndHashCode(doNotUseGetters = true, exclude = {"product", "location"})
 public class ProductsLocations implements Serializable {
     @EmbeddedId
     private ProductLocationId id = new ProductLocationId();
@@ -62,7 +64,6 @@ public class ProductsLocations implements Serializable {
     public void setLocationId(Long locationId) {
         this.id.setLocationId(locationId);
     }
-
 
 }
 
