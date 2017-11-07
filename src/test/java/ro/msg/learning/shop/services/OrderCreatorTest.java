@@ -79,7 +79,9 @@ public class OrderCreatorTest {
         when(mockProductRepository.findOne(anyLong())).thenAnswer(
             (Answer<Product>) invocation -> {
                 if (productsLocationsList.stream().anyMatch(x -> x.getProductId().equals(invocation.getArguments()[0]))) {
-                    return new Product();
+                    Product p = new Product();
+                    p.setId((Long) invocation.getArguments()[0]);
+                    return p;
                 } else {
                     return null;
                 }

@@ -26,6 +26,14 @@ public class StockSupplierIntegrationTest {
     @Autowired
     private ProductRepository productRepository;
 
+    private void assertQuantity(List<ProductsLocations> actual, long id, long quantity) {
+        Assert.assertEquals("Testing for productId " + id,
+            actual.stream().filter(x -> x.getProductId().equals(id)).
+                mapToLong(ProductsLocations::getQuantity).sum() + quantity,
+            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(id)).
+                mapToLong(ProductsLocations::getQuantity).sum());
+    }
+
     @Test
     public void emptyProductMapTest() {
         List<ProductsLocations> actual = productRepository.findAllProductsLocations();
@@ -36,29 +44,14 @@ public class StockSupplierIntegrationTest {
     @Test
     public void correctProductMapWithNoDuplicateTest() {
         HashMap<Long, Long> productMap = new HashMap<>();
-        productMap.put(10L, 29L);
-        productMap.put(13L, 19L);
+        productMap.put(19L, 30L);
+        productMap.put(4L, 16L);
         productMap.put(15L, 21L);
         List<ProductsLocations> actual = productRepository.findAllProductsLocations();
         stockSupplier.addStock(productMap);
-
-        Assert.assertEquals("Testing for productId 10",
-            actual.stream().filter(x -> x.getProductId().equals(10L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 29L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(10L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
-
-        Assert.assertEquals("Testing for productId 13",
-            actual.stream().filter(x -> x.getProductId().equals(13L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 19L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(13L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
-
-        Assert.assertEquals("Testing for productId 15",
-            actual.stream().filter(x -> x.getProductId().equals(15L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 21L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(15L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
+        for (Long key : productMap.keySet()) {
+            assertQuantity(actual, key, productMap.get(key));
+        }
     }
 
     @Test
@@ -69,24 +62,9 @@ public class StockSupplierIntegrationTest {
         productMap.put(1L, 21L);
         List<ProductsLocations> actual = productRepository.findAllProductsLocations();
         stockSupplier.addStock(productMap);
-
-        Assert.assertEquals("Testing for productId 10",
-            actual.stream().filter(x -> x.getProductId().equals(10L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 29L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(10L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
-
-        Assert.assertEquals("Testing for productId 13",
-            actual.stream().filter(x -> x.getProductId().equals(13L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 19L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(13L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
-
-        Assert.assertEquals("Testing for productId 1",
-            actual.stream().filter(x -> x.getProductId().equals(1L)).
-                mapToLong(ProductsLocations::getQuantity).sum() + 21L,
-            productRepository.findAllProductsLocations().stream().filter(x -> x.getProductId().equals(1L)).
-                mapToLong(ProductsLocations::getQuantity).sum());
+        for (Long key : productMap.keySet()) {
+            assertQuantity(actual, key, productMap.get(key));
+        }
     }
 
     @Test(expected = ProductNotFoundException.class)
