@@ -24,20 +24,18 @@ public class MostAbundantQSTest {
     @Test(expected = InvalidParameterException.class)
     public void notEnoughQuantity() {
         HashMap<Long, Long> hashMap = new HashMap<>();
-        hashMap.put(1L, 1L);
-        hashMap.put(2L, 3L);
-        List<ProductsLocations> productsLocations = new ArrayList<>();
-        quantityStrategy.getLocations(hashMap, productsLocations);
+        hashMap.put(2L, 2L);
+        quantityStrategy.getLocations(hashMap, new ArrayList<>());
     }
 
     @Test
     public void oneLocation() {
         HashMap<Long, Long> hashMap = new HashMap<>();
-        hashMap.put(1L, 1L);
-        hashMap.put(2L, 2L);
+        hashMap.put(3L, 1L);
+        hashMap.put(4L, 2L);
         List<ProductsLocations> productsLocations = new ArrayList<>();
-        productsLocations.add(new ProductsLocations(1L, 7L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 7L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 7L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 7L, 2L));
 
         Assert.assertEquals(productsLocations, quantityStrategy.getLocations(hashMap, productsLocations));
     }
@@ -45,14 +43,14 @@ public class MostAbundantQSTest {
     @Test
     public void twoLocationsEnoughInFirst() {
         HashMap<Long, Long> hashMap = new HashMap<>();
-        hashMap.put(1L, 1L);
-        hashMap.put(2L, 2L);
+        hashMap.put(3L, 1L);
+        hashMap.put(4L, 2L);
         List<ProductsLocations> productsLocations = new ArrayList<>();
         List<ProductsLocations> expected = new ArrayList<>();
-        productsLocations.add(new ProductsLocations(1L, 7L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 7L, 2L));
-        productsLocations.add(new ProductsLocations(1L, 8L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 8L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 7L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 7L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 8L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 8L, 2L));
         expected.add(productsLocations.get(1));
         expected.add(productsLocations.get(0));
 
@@ -62,13 +60,13 @@ public class MostAbundantQSTest {
     @Test
     public void twoLocationsNeedsBoth() {
         HashMap<Long, Long> hashMap = new HashMap<>();
-        hashMap.put(1L, 2L);
-        hashMap.put(2L, 4L);
+        hashMap.put(3L, 2L);
+        hashMap.put(4L, 4L);
         List<ProductsLocations> productsLocations = new ArrayList<>();
-        productsLocations.add(new ProductsLocations(1L, 7L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 7L, 2L));
-        productsLocations.add(new ProductsLocations(1L, 8L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 8L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 7L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 7L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 8L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 8L, 2L));
 
         Assert.assertEquals(productsLocations, quantityStrategy.getLocations(hashMap, productsLocations));
     }
@@ -76,17 +74,17 @@ public class MostAbundantQSTest {
     @Test
     public void twoLocationsNeedsFromBoth() {
         HashMap<Long, Long> hashMap = new HashMap<>();
-        hashMap.put(1L, 1L);
-        hashMap.put(2L, 3L);
+        hashMap.put(3L, 1L);
+        hashMap.put(4L, 3L);
         List<ProductsLocations> productsLocations = new ArrayList<>();
         List<ProductsLocations> expected = new ArrayList<>();
-        productsLocations.add(new ProductsLocations(1L, 7L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 7L, 2L));
-        productsLocations.add(new ProductsLocations(1L, 8L, 1L));
-        productsLocations.add(new ProductsLocations(2L, 8L, 2L));
-        expected.add(new ProductsLocations(2L, 7L, 2L));
-        expected.add(new ProductsLocations(2L, 8L, 1L));
-        expected.add(new ProductsLocations(1L, 7L, 1L));
+        productsLocations.add(new ProductsLocations(3L, 7L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 7L, 2L));
+        productsLocations.add(new ProductsLocations(3L, 8L, 1L));
+        productsLocations.add(new ProductsLocations(4L, 8L, 2L));
+        expected.add(new ProductsLocations(4L, 7L, 2L));
+        expected.add(new ProductsLocations(4L, 8L, 1L));
+        expected.add(new ProductsLocations(3L, 7L, 1L));
 
         Assert.assertEquals(expected, quantityStrategy.getLocations(hashMap, productsLocations));
     }

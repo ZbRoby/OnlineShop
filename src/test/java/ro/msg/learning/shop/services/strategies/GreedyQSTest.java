@@ -25,9 +25,7 @@ public class GreedyQSTest {
     public void notEnoughQuantity() {
         HashMap<Long, Long> hashMap = new HashMap<>();
         hashMap.put(1L, 1L);
-        hashMap.put(2L, 3L);
-        List<ProductsLocations> productsLocations = new ArrayList<>();
-        quantityStrategy.getLocations(hashMap, productsLocations);
+        quantityStrategy.getLocations(hashMap, new ArrayList<>());
     }
 
     @Test
