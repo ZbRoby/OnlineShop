@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import ro.msg.learning.shop.entities.Product;
@@ -17,10 +16,8 @@ import javax.persistence.Enumerated;
 @JsonSerialize
 public class ShelfProduct {
 
-    @JsonProperty("Product")
     private Product product;
     @Enumerated(EnumType.STRING)
-    @JsonProperty("Status")
     private ProductStatus productStatus;
 
     public ShelfProduct(Product product) {

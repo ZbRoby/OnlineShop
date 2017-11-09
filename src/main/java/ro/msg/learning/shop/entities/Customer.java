@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,26 +22,20 @@ public class Customer implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("FirstName")
     @Column(name = "FirstName", nullable = false, unique = false)
     private String firstName;
-    @JsonProperty("LastName")
     @Column(name = "LastName", nullable = false, unique = false)
     private String lastName;
-    @JsonProperty("Username")
     @Column(name = "Username", nullable = false, unique = true)
     private String username;
-    @JsonIgnore
     @Column(name = "Password", nullable = false, unique = false)
     private String password;
 
     @ManyToOne
     private Address address;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
 

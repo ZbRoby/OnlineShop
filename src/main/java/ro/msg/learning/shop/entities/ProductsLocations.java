@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,7 +21,6 @@ public class ProductsLocations implements Serializable {
     private ProductLocationId id = new ProductLocationId();
 
     @Column(name = "Quantity", nullable = true, unique = false)
-    @JsonProperty("Quantity")
     private long quantity;
 
     @ManyToOne

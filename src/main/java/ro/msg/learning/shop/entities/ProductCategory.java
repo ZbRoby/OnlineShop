@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,17 +22,14 @@ public class ProductCategory implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Name")
     @Column(name = "Name", nullable = false, unique = true)
     private String name;
 
     @OneToOne
     private ProductCategory mainCategory;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private List<Product> products = new ArrayList<>();
 

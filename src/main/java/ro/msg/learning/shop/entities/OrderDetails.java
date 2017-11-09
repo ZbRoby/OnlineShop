@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,23 +20,18 @@ public class OrderDetails implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Quantity")
     @Column(name = "Quantity", nullable = true, unique = false)
     private Long quantity;
-    @JsonProperty("Discount")
     @Column(name = "Discount", nullable = false, unique = false)
     private double discount;
-    @JsonProperty("UnitPrice")
     @Column(name = "UnitPrice", nullable = false, unique = false)
     private double unitPrice;
 
     @OneToOne
     private Product product;
 
-    @JsonIgnore
     @ManyToOne
     private Order order;
 

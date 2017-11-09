@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -25,22 +23,16 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Name")
     @Column(name = "Name", nullable = false, unique = true)
     private String name;
-    @JsonProperty("SupplierName")
     @Column(name = "Supplier_Name", nullable = false, unique = false)
     private String supplierName;
-    @JsonProperty("Description")
     @Column(name = "Description", nullable = true, unique = false)
     private String description;
-    @JsonProperty("CurrencyCode")
     @Column(name = "Currency_Code", nullable = false, unique = false)
     private String currencyCode;
-    @JsonProperty("Price")
     @Column(name = "Price", nullable = false, unique = false)
     private double price;
 
@@ -50,7 +42,6 @@ public class Product implements Serializable {
     @ManyToOne
     private ProductCategory category;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<ProductsLocations> productsLocations = new ArrayList<>();
 

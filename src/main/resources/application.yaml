@@ -20,5 +20,5 @@ spring:
 
     main.web-environment: true
 
-onlineShop.strategies.quantityStrategyType: SINGLE_LOCATION
+onlineShop.strategies.quantityStrategyType: GREEDY
 

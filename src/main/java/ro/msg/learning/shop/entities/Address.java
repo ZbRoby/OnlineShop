@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,29 +21,21 @@ public class Address implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("Country")
     @Column(name = "Country", nullable = false, unique = false)
     private String country;
-    @JsonProperty("City")
     @Column(name = "City", nullable = false, unique = false)
     private String city;
-    @JsonProperty("Street")
     @Column(name = "Street", nullable = false, unique = false)
     private String street;
-    @JsonProperty("ZipCode")
     @Column(name = "Zip_Code", nullable = true, unique = false)
     private String zipCode;
-    @JsonProperty("Other")
     @Column(name = "Other", nullable = true, unique = false)
     private String other;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "address")
     private List<Customer> customers = new ArrayList<>();
-
 
     public Address() {
     }

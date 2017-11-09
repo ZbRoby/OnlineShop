@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -22,13 +21,10 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
-    @JsonProperty("ShippedDate")
     @Column(name = "Shipped_Date", nullable = true, unique = false)
     private Date shippedDate;
-    @JsonProperty("OrderDate")
     @Column(name = "Order_Date", nullable = false, unique = false)
     private Date orderDate;
 

@@ -1,7 +1,5 @@
 package ro.msg.learning.shop.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -25,14 +23,12 @@ public class Location implements Serializable {
 
     @Id
     @GeneratedValue
-    @JsonProperty("ID")
     @Column(name = "ID")
     private long id;
 
     @OneToOne
     private Address address;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "location")
     private List<ProductsLocations> productsLocations = new ArrayList<>();
 
