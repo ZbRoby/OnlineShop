@@ -1,0 +1,69 @@
+package ro.msg.learning.shop.controllers;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit4.SpringRunner;
+import ro.msg.learning.shop.entities.Address;
+import ro.msg.learning.shop.entities.Order;
+import ro.msg.learning.shop.model.OrderInput;
+
+import java.sql.Date;
+import java.util.HashMap;
+
+/**
+ * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
+ */
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class OrderCreatorControllerTest {
+
+    @Autowired
+    private TestRestTemplate testRestTemplate;
+
+    @Test
+    public void createOrderTest() {
+        OrderInput orderInput = new OrderInput();
+        HashMap<Long, Long> productQuantity = new HashMap<>();
+        productQuantity.put(1L, 1L);
+        productQuantity.put(2L, 10L);
+        productQuantity.put(17L, 8L);
+        orderInput.setDate(Date.valueOf("1995-10-10"));
+        orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
+        orderInput.setProductMap(productQuantity);
+        ResponseEntity<Order> order = testRestTemplate.postForEntity("/rest/orderCreator", orderInput, Order.class);
+        Assert.assertNotEquals(0, order.getBody().getId());
+        Assert.assertTrue(order.getStatusCode().is2xxSuccessful());
+    }
+
+    @Test
+    public void createOrderTestProductNotFound() {
+        OrderInput orderInput = new OrderInput();
+        HashMap<Long, Long> productQuantity = new HashMap<>();
+        productQuantity.put(100L, 1L);
+        orderInput.setDate(Date.valueOf("1995-10-10"));
+        orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
+        orderInput.setProductMap(productQuantity);
+        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator", orderInput, String.class);
+        Assert.assertNotNull(order.getBody());
+        Assert.assertTrue(order.getStatusCode().is4xxClientError());
+    }
+
+    @Test
+    public void createOrderTestNotEnoughStock() {
+        OrderInput orderInput = new OrderInput();
+        HashMap<Long, Long> productQuantity = new HashMap<>();
+        productQuantity.put(1L, 100000L);
+        orderInput.setDate(Date.valueOf("1995-10-10"));
+        orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
+        orderInput.setProductMap(productQuantity);
+        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator", orderInput, String.class);
+        Assert.assertNotNull(order.getBody());
+        Assert.assertTrue(order.getStatusCode().is4xxClientError());
+    }
+}
