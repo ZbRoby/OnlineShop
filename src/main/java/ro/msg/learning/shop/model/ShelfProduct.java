@@ -1,7 +1,8 @@
 package ro.msg.learning.shop.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.entities.Product;
 import ro.msg.learning.shop.entities.enums.ProductStatus;
 
@@ -13,7 +14,8 @@ import javax.persistence.Enumerated;
  */
 
 @Data
-@JsonSerialize
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShelfProduct {
 
     private Product product;
@@ -24,12 +26,4 @@ public class ShelfProduct {
         this.product = product;
     }
 
-    public ShelfProduct(Product product, ProductStatus productStatus) {
-        this.product = product;
-        this.productStatus = productStatus;
-    }
-
-    public void setProductStatus(ProductStatus productStatus) {
-        this.productStatus = productStatus;
-    }
 }

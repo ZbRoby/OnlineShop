@@ -14,6 +14,7 @@ import java.util.Map;
 public class PLQList extends ListParam<ProductLocationQuantity> {
 
     public PLQList() {
+        this.setList(new ArrayList<>());
     }
 
     public PLQList(List<ProductsLocations> productsLocationsList) {
