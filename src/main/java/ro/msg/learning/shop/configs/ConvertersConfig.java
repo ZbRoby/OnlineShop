@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
-import ro.msg.learning.shop.converter.CsvHttpMessageConverter;
+import ro.msg.learning.shop.converters.CsvHttpMessageConverter;
 import ro.msg.learning.shop.entities.*;
 import ro.msg.learning.shop.mixins.*;
 import ro.msg.learning.shop.models.OrderInput;

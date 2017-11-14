@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.converter;
+package ro.msg.learning.shop.converters;
 
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.*;
