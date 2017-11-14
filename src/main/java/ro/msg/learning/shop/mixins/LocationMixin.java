@@ -1,11 +1,11 @@
-package ro.msg.learning.shop.mixin;
+package ro.msg.learning.shop.mixins;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ro.msg.learning.shop.entities.Address;
-import ro.msg.learning.shop.entities.Order;
+import ro.msg.learning.shop.entities.ProductsLocations;
 
 import java.util.List;
 
@@ -14,26 +14,15 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public interface CustomerMixin {
+public interface LocationMixin {
 
     @JsonProperty("Id")
     long getId();
-
-    @JsonProperty("FirstName")
-    String getFirstName();
-
-    @JsonProperty("LastName")
-    String getLastName();
-
-    @JsonProperty("Username")
-    String getUsername();
-
-    @JsonIgnore
-    String getPassword();
 
     @JsonProperty("Address")
     Address getAddress();
 
     @JsonIgnore
-    List<Order> getOrders();
+    List<ProductsLocations> getProductsLocations();
+
 }

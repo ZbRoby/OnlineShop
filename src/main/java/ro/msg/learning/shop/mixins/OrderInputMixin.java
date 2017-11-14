@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.mixin;
+package ro.msg.learning.shop.mixins;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

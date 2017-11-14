@@ -1,11 +1,11 @@
-package ro.msg.learning.shop.mixin;
+package ro.msg.learning.shop.mixins;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ro.msg.learning.shop.entities.Address;
-import ro.msg.learning.shop.entities.ProductsLocations;
+import ro.msg.learning.shop.entities.Product;
+import ro.msg.learning.shop.entities.ProductCategory;
 
 import java.util.List;
 
@@ -14,15 +14,17 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public interface LocationMixin {
+public interface ProductCategoryMixin {
 
     @JsonProperty("Id")
     long getId();
 
-    @JsonProperty("Address")
-    Address getAddress();
+    @JsonProperty("Name")
+    String getName();
+
+    @JsonProperty("MainCategory")
+    ProductCategory getMainCategory();
 
     @JsonIgnore
-    List<ProductsLocations> getProductsLocations();
-
+    List<Product> getProducts();
 }

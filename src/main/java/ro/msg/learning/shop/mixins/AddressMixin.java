@@ -1,34 +1,40 @@
-package ro.msg.learning.shop.mixin;
+package ro.msg.learning.shop.mixins;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ro.msg.learning.shop.entities.Order;
-import ro.msg.learning.shop.entities.Product;
+import ro.msg.learning.shop.entities.Customer;
+
+import java.util.List;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public interface OrderDetailsMixin {
+public interface AddressMixin {
 
     @JsonProperty("Id")
     long getId();
 
-    @JsonProperty("Quantity")
-    Long getQuantity();
+    @JsonProperty("Country")
+    String getCountry();
 
-    @JsonProperty("Discount")
-    double getDiscount();
+    @JsonProperty("City")
+    String getCity();
 
-    @JsonProperty("UnitPrice")
-    double getUnitPrice();
+    @JsonProperty("Street")
+    String getStreet();
 
-    @JsonProperty("Product")
-    Product getProduct();
+    @JsonProperty("ZipCode")
+    String getZipCode();
+
+    @JsonProperty("Other")
+    String getOther();
 
     @JsonIgnore
-    Order getOrder();
+    List<Customer> getCustomers();
+
 }
