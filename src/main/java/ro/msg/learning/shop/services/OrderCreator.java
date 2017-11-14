@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.entities.*;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
-import ro.msg.learning.shop.model.OrderInput;
+import ro.msg.learning.shop.models.OrderInput;
 import ro.msg.learning.shop.repositories.*;
 import ro.msg.learning.shop.services.strategies.QuantityStrategy;
 

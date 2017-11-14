@@ -1,4 +1,4 @@
-package ro.msg.learning.shop;
+package ro.msg.learning.shop.handlers;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

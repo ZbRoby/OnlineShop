@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import ro.msg.learning.shop.model.PLQList;
+import ro.msg.learning.shop.models.PLQList;
 import ro.msg.learning.shop.services.StockExporter;
 
 /**

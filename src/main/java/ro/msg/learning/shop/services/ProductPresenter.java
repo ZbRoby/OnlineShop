@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.entities.Product;
 import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.entities.enums.ProductStatus;
-import ro.msg.learning.shop.model.ShelfProduct;
+import ro.msg.learning.shop.models.ShelfProduct;
 import ro.msg.learning.shop.repositories.ProductRepository;
 
 import java.util.ArrayList;

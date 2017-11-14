@@ -3,7 +3,7 @@ package ro.msg.learning.shop.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ro.msg.learning.shop.model.ShelfProduct;
+import ro.msg.learning.shop.models.ShelfProduct;
 import ro.msg.learning.shop.services.ProductPresenter;
 
 import java.util.List;

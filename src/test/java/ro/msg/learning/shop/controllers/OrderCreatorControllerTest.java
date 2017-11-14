@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Order;
-import ro.msg.learning.shop.model.OrderInput;
+import ro.msg.learning.shop.models.OrderInput;
 
 import java.sql.Date;
 import java.util.HashMap;

@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ro.msg.learning.shop.entities.Order;
-import ro.msg.learning.shop.model.OrderInput;
+import ro.msg.learning.shop.models.OrderInput;
 import ro.msg.learning.shop.services.OrderCreator;
 
 /**

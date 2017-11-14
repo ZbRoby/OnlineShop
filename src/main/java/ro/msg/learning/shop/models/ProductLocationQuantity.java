@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.model;
+package ro.msg.learning.shop.models;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;

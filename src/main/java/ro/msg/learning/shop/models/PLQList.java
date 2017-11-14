@@ -1,4 +1,4 @@
-package ro.msg.learning.shop.model;
+package ro.msg.learning.shop.models;
 
 import ro.msg.learning.shop.entities.ProductsLocations;
 

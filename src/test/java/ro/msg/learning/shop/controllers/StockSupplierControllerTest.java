@@ -9,7 +9,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.ProductsLocations;
-import ro.msg.learning.shop.model.PLQList;
+import ro.msg.learning.shop.models.PLQList;
 
 import java.util.ArrayList;
 import java.util.List;

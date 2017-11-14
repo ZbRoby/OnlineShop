@@ -10,7 +10,7 @@ import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Order;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
-import ro.msg.learning.shop.model.OrderInput;
+import ro.msg.learning.shop.models.OrderInput;
 
 import java.sql.Date;
 import java.util.HashMap;

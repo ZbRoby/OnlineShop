@@ -7,7 +7,7 @@ import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import ro.msg.learning.shop.model.ListParam;
+import ro.msg.learning.shop.models.ListParam;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
