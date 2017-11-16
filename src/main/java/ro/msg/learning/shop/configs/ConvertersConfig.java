@@ -38,6 +38,8 @@ public class ConvertersConfig {
         module.setMixInAnnotation(ProductsLocations.class, ProductsLocationsMixin.class);
         module.setMixInAnnotation(OrderInput.class, OrderInputMixin.class);
         module.setMixInAnnotation(ShelfProduct.class, ShelfProductMixin.class);
+        module.setMixInAnnotation(Role.class, RoleMixin.class);
+        module.setMixInAnnotation(User.class, UserMixin.class);
         return module;
     }
 }

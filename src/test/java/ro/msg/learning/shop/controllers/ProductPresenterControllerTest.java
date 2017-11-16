@@ -24,8 +24,9 @@ public class ProductPresenterControllerTest {
     public void seeProductsTest() {
         ResponseEntity<ShelfProduct[]> forEntity = testRestTemplate.getForEntity("/rest/seeProducts", ShelfProduct[].class);
         Assert.assertNotNull(forEntity.getBody());
-        if(forEntity.getBody().length>=1)
-            Assert.assertNotEquals(0,forEntity.getBody()[0].getProduct().getId());
+        if (forEntity.getBody().length >= 1) {
+            Assert.assertNotEquals(0, forEntity.getBody()[0].getProduct().getId());
+        }
         Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
     }
 }
