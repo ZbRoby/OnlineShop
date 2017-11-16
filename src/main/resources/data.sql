@@ -42,7 +42,7 @@ insert into USER_ROLES (ID, NAME) values (2,'CUSTOMERS');
 
 --USERS
 
-insert into USERS (ID,PASSWORD, USERNAME) values ( 1, 'test', 'user'             );
+insert into USERS (ID,PASSWORD, USERNAME) values ( 1, 'test', 'customer'             );
 insert into USERS (ID,PASSWORD, USERNAME) values ( 2, 'soJN0FBw', 'lchieco1'     );
 insert into USERS (ID,PASSWORD, USERNAME) values ( 3, 'bUFzeF', 'mbacken2'       );
 insert into USERS (ID,PASSWORD, USERNAME) values ( 4, 'joYvIP', 'mrowter3'       );
@@ -105,6 +105,26 @@ insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (17, 2);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (18, 2);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (19, 2);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (20, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (21, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (22, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (23, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (24, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (25, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (26, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (27, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (28, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (29, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (30, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (31, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (32, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (33, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (34, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (35, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (36, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (37, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (38, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (39, 2);
+insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (40, 2);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (21, 1);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (22, 1);
 insert into USERS_JOIN_ROLES (USER_ID, ROLE_ID) values (23, 1);

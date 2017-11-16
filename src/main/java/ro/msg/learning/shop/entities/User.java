@@ -4,16 +4,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
+
 @Data
-@Entity
 @NoArgsConstructor
+@Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue

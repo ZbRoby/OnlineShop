@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -14,10 +15,11 @@ import java.util.List;
  */
 
 @Data()
-@Table(name = "CUSTOMERS")
-@Entity
-@ToString(doNotUseGetters = true, exclude = "orders")
+@NoArgsConstructor
 @EqualsAndHashCode(doNotUseGetters = true, exclude = "orders")
+@ToString(doNotUseGetters = true, exclude = "orders")
+@Entity
+@Table(name = "CUSTOMERS")
 public class Customer implements Serializable {
 
     @Id
@@ -37,9 +39,6 @@ public class Customer implements Serializable {
 
     @OneToMany(mappedBy = "customer")
     private List<Order> orders = new ArrayList<>();
-
-    public Customer() {
-    }
 
     public Customer(String firstName, String lastName, User user) {
         this.firstName = firstName;

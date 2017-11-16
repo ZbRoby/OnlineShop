@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -12,10 +13,11 @@ import java.io.Serializable;
  */
 
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(doNotUseGetters = true, exclude = {"product", "location"})
+@ToString(doNotUseGetters = true, exclude = {"product", "location"})
 @Entity
 @Table(name = "PRODUCTS_LOCATIONS")
-@ToString(doNotUseGetters = true, exclude = {"product", "location"})
-@EqualsAndHashCode(doNotUseGetters = true, exclude = {"product", "location"})
 public class ProductsLocations implements Serializable {
     @EmbeddedId
     private ProductLocationId id = new ProductLocationId();
@@ -29,9 +31,6 @@ public class ProductsLocations implements Serializable {
     @ManyToOne
     @JoinColumn(name = "Location_ID", referencedColumnName = "ID", insertable = false, updatable = false)
     private Location location;
-
-    public ProductsLocations() {
-    }
 
     public ProductsLocations(Long productId, Long locationId, long quantity, Product product, Location location) {
         this.id = new ProductLocationId(productId, locationId);

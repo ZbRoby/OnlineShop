@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -15,10 +16,11 @@ import java.util.Optional;
  */
 
 @Data
+@NoArgsConstructor
+@EqualsAndHashCode(doNotUseGetters = true, exclude = "productsLocations")
+@ToString(doNotUseGetters = true, exclude = "productsLocations")
 @Entity
 @Table(name = "PRODUCTS")
-@ToString(doNotUseGetters = true, exclude = "productsLocations")
-@EqualsAndHashCode(doNotUseGetters = true, exclude = "productsLocations")
 public class Product implements Serializable {
 
     @Id
@@ -43,9 +45,6 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private List<ProductsLocations> productsLocations = new ArrayList<>();
 
-    public Product() {
-    }
-
     public Product(String name, String supplierName, String description, String currencyCode, double price, ProductDetails productDetails, ProductCategory category) {
         this.name = name;
         this.supplierName = supplierName;
@@ -57,7 +56,7 @@ public class Product implements Serializable {
     }
 
     public void addLocation(Location location, long quantity) {
-        if (!getProductsLocations().stream().anyMatch(x -> x.getLocation() == location)) {
+        if (getProductsLocations().stream().noneMatch(x -> x.getLocation() == location)) {
             ProductsLocations temp = new ProductsLocations();
             temp.setLocation(location);
             temp.setProduct(this);
@@ -74,17 +73,11 @@ public class Product implements Serializable {
 
     public Long getQuantity(Location location) {
         final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getLocation() == location).findFirst();
-        if (temp.isPresent()) {
-            return temp.get().getQuantity();
-        } else {
-            return null;
-        }
+        return temp.map(ProductsLocations::getQuantity).orElse(null);
     }
 
     public void setQuantity(Location location, long quantity) {
         final Optional<ProductsLocations> temp = getProductsLocations().stream().filter(x -> x.getLocation() == location).findFirst();
-        if (temp.isPresent()) {
-            temp.get().setQuantity(quantity);
-        }
+        temp.ifPresent(prodLocations -> prodLocations.setQuantity(quantity));
     }
 }

@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ro.msg.learning.shop.entities.enums.DistanceUnit;
 import ro.msg.learning.shop.entities.enums.MassUnit;
 
@@ -10,7 +11,9 @@ import java.io.Serializable;
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
+
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "PRODUCT_DETAILS")
 public class ProductDetails implements Serializable {
@@ -26,9 +29,6 @@ public class ProductDetails implements Serializable {
     private double width;
     private double height;
     private double depth;
-
-    public ProductDetails() {
-    }
 
     public ProductDetails(MassUnit massUnit, double mass, DistanceUnit distanceUnit, double width, double height, double depth) {
         this.massUnit = massUnit;

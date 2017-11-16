@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -14,9 +15,10 @@ import java.util.List;
  */
 
 @Data
-@Table(name = "ORDERS")
-@Entity
+@NoArgsConstructor
 @ToString(doNotUseGetters = true)
+@Entity
+@Table(name = "ORDERS")
 public class Order implements Serializable {
 
     @Id
@@ -37,9 +39,6 @@ public class Order implements Serializable {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetails> ordersDetails = new ArrayList<>();
-
-    public Order() {
-    }
 
     public Order(Date shippedDate, Date orderDate, Customer customer, Employee employee, Address address) {
         this.shippedDate = shippedDate;

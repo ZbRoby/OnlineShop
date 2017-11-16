@@ -2,6 +2,7 @@ package ro.msg.learning.shop.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ro.msg.learning.shop.entities.enums.Title;
 
@@ -15,10 +16,11 @@ import java.util.List;
  */
 
 @Data
-@Table(name = "EMPLOYEES")
-@Entity
-@ToString(doNotUseGetters = true, exclude = "orders")
+@NoArgsConstructor
 @EqualsAndHashCode(doNotUseGetters = true, exclude = "orders")
+@ToString(doNotUseGetters = true, exclude = "orders")
+@Entity
+@Table(name = "EMPLOYEES")
 public class Employee implements Serializable {
 
     @Id
@@ -35,14 +37,11 @@ public class Employee implements Serializable {
     @Column(name = "Title", nullable = false, unique = false)
     private Title title;
 
-    @OneToMany(mappedBy = "employee")
-    private List<Order> orders = new ArrayList<>();
-
     @OneToOne
     private User user;
 
-    public Employee() {
-    }
+    @OneToMany(mappedBy = "employee")
+    private List<Order> orders = new ArrayList<>();
 
     public Employee(String firstName, String lastName, User user, String homePhone, Title title) {
         this.firstName = firstName;
