@@ -28,10 +28,9 @@ public class Customer implements Serializable {
     private String firstName;
     @Column(name = "LastName", nullable = false, unique = false)
     private String lastName;
-    @Column(name = "Username", nullable = false, unique = true)
-    private String username;
-    @Column(name = "Password", nullable = false, unique = false)
-    private String password;
+
+    @OneToOne
+    private User user;
 
     @ManyToOne
     private Address address;
@@ -42,11 +41,10 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String username, String password) {
+    public Customer(String firstName, String lastName, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
-        this.password = password;
+        this.user = user;
     }
 
     public void addOrder(Order order) {

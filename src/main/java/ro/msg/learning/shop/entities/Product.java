@@ -23,17 +23,15 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private long id;
-    @Column(name = "Name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
-    @Column(name = "Supplier_Name", nullable = false, unique = false)
+    @Column(nullable = false)
     private String supplierName;
-    @Column(name = "Description", nullable = true, unique = false)
     private String description;
-    @Column(name = "Currency_Code", nullable = false, unique = false)
+    @Column(name = "Currency_Code", nullable = false)
     private String currencyCode;
-    @Column(name = "Price", nullable = false, unique = false)
+    @Column(name = "Price", nullable = false)
     private double price;
 
     @OneToOne

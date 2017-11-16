@@ -20,7 +20,6 @@ public class ProductsLocations implements Serializable {
     @EmbeddedId
     private ProductLocationId id = new ProductLocationId();
 
-    @Column(name = "Quantity", nullable = true, unique = false)
     private long quantity;
 
     @ManyToOne

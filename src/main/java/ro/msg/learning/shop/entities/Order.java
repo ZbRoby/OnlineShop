@@ -21,11 +21,9 @@ public class Order implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private long id;
-    @Column(name = "Shipped_Date", nullable = true, unique = false)
     private Date shippedDate;
-    @Column(name = "Order_Date", nullable = false, unique = false)
+    @Column(nullable = false)
     private Date orderDate;
 
     @ManyToOne

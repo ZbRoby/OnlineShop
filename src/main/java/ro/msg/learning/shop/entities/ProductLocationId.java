@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Data
 @Embeddable
-class ProductLocationId implements Serializable {
+public class ProductLocationId implements Serializable {
 
     @Column(name = "Product_ID")
     private Long productId;

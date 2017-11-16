@@ -29,10 +29,6 @@ public class Employee implements Serializable {
     private String firstName;
     @Column(name = "Last_Name", nullable = false, unique = false)
     private String lastName;
-    @Column(name = "Username", nullable = false, unique = true)
-    private String username;
-    @Column(name = "Password", nullable = false, unique = false)
-    private String password;
     @Column(name = "Home_Phone", nullable = false, unique = false)
     private String homePhone;
     @Enumerated(EnumType.STRING)
@@ -42,14 +38,16 @@ public class Employee implements Serializable {
     @OneToMany(mappedBy = "employee")
     private List<Order> orders = new ArrayList<>();
 
+    @OneToOne
+    private User user;
+
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String username, String password, String homePhone, Title title) {
+    public Employee(String firstName, String lastName, User user, String homePhone, Title title) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
-        this.password = password;
+        this.user = user;
         this.homePhone = homePhone;
         this.title = title;
     }

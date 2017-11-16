@@ -23,7 +23,6 @@ public class Location implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private long id;
 
     @OneToOne

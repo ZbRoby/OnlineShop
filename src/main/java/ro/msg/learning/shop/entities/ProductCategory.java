@@ -22,9 +22,8 @@ public class ProductCategory implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private long id;
-    @Column(name = "Name", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @OneToOne

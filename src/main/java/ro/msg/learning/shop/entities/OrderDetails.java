@@ -20,13 +20,11 @@ public class OrderDetails implements Serializable {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
     private long id;
-    @Column(name = "Quantity", nullable = true, unique = false)
     private Long quantity;
-    @Column(name = "Discount", nullable = false, unique = false)
+    @Column(nullable = false)
     private double discount;
-    @Column(name = "UnitPrice", nullable = false, unique = false)
+    @Column(nullable = false)
     private double unitPrice;
 
     @OneToOne
