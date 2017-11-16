@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ro.msg.learning.shop.entities.Address;
-import ro.msg.learning.shop.entities.Order;
-import ro.msg.learning.shop.entities.User;
+import ro.msg.learning.shop.entities.Role;
 
 import java.util.List;
 
@@ -15,23 +13,17 @@ import java.util.List;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public interface CustomerMixin {
+public interface UserMixin {
 
     @JsonProperty("Id")
     long getId();
 
-    @JsonProperty("FirstName")
-    String getFirstName();
-
-    @JsonProperty("LastName")
-    String getLastName();
-
-    @JsonProperty("User")
-    User getUser();
-
-    @JsonProperty("Address")
-    Address getAddress();
+    @JsonProperty("Username")
+    String getUsername();
 
     @JsonIgnore
-    List<Order> getOrders();
+    String getPassword();
+
+    @JsonProperty("Roles")
+    List<Role> getRoles();
 }
