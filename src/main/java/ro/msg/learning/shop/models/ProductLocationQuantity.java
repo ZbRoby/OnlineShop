@@ -9,11 +9,8 @@ import ro.msg.learning.shop.entities.ProductsLocations;
  */
 @Data
 public class ProductLocationQuantity {
-    @CsvBindByName
     private long productId;
-    @CsvBindByName
     private long locationId;
-    @CsvBindByName
     private long quantity;
 
     public ProductLocationQuantity() {

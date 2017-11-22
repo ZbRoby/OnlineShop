@@ -60,7 +60,6 @@ public class CsvHttpMessageConverter<T, L extends ListParam<T>>
         StatefulBeanToCsv<T> beanToCsv =
             new StatefulBeanToCsvBuilder(outputStream)
                 .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                .withMappingStrategy(strategy)
                 .build();
         try {
             beanToCsv.write(l.getList());
