@@ -38,7 +38,7 @@ insert into ADDRESSES (ID, COUNTRY, CITY, STREET, ZIP_CODE, OTHER) values (20, '
 --USER_ROLES
 
 insert into USER_ROLES (ID, NAME) values (1,'ADMIN');
-insert into USER_ROLES (ID, NAME) values (2,'CUSTOMERS');
+insert into USER_ROLES (ID, NAME) values (2,'CUSTOMER');
 
 --USERS
 

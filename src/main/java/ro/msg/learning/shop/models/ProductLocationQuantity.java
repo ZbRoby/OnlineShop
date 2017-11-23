@@ -1,6 +1,5 @@
 package ro.msg.learning.shop.models;
 
-import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 import ro.msg.learning.shop.entities.ProductsLocations;
 
