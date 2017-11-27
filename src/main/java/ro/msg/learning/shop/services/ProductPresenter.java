@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.entities.Product;
 import ro.msg.learning.shop.entities.ProductsLocations;
@@ -32,6 +33,7 @@ public class ProductPresenter {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
     public List<ShelfProduct> getProductList() {
         ArrayList<ShelfProduct> shelfProducts = new ArrayList<>();
 

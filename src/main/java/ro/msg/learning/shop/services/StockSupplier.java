@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.entities.ProductsLocations;
@@ -26,6 +27,7 @@ public class StockSupplier {
         this.productRepository = productRepository;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void addStock(List<Long> productIdList, List<Long> quantityIdList) {
         HashMap<Long, Long> productQuantity = new HashMap<>();
         for (int i = 0; i < productIdList.size(); i++) {
@@ -35,6 +37,7 @@ public class StockSupplier {
     }
 
     @Transactional
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void addStock(Map<Long, Long> productQuantity) {
         List<ProductsLocations> productLocations = productRepository.findAllProductsLocationsInSet(productQuantity.keySet());
         long count = productLocations.stream().mapToLong(ProductsLocations::getProductId).distinct().count();

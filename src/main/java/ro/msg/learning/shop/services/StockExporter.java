@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.repositories.ProductRepository;
@@ -20,10 +21,12 @@ public class StockExporter {
         this.productRepository = productRepository;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<ProductsLocations> getStockOfLocation(long locationId) {
         return productRepository.findAllProductsLocationsWithLocationId(locationId);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<ProductsLocations> getStock() {
         return productRepository.findAllProductsLocations();
     }

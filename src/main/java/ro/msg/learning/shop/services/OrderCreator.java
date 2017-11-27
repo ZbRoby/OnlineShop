@@ -1,6 +1,10 @@
 package ro.msg.learning.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.entities.*;
@@ -12,6 +16,7 @@ import ro.msg.learning.shop.services.strategies.QuantityStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -63,16 +68,36 @@ public class OrderCreator {
         return address;
     }
 
-    @Transactional
-    public Order createOrder(OrderInput orderInput) {
+    private Customer getCustomer() {
+        String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Optional<Customer> customerOptional = customerRepository.findOptionalByUserUsername(username);
+        if (customerOptional.isPresent()) {
+            return customerOptional.get();
+        } else {
+            Optional<Employee> employeeOptional = employeeRepository.findOptionalByUserUsername(username);
+            if (employeeOptional.isPresent()) {
+                Customer customer = new Customer();
+                customer.setLastName(employeeOptional.get().getLastName());
+                customer.setFirstName(employeeOptional.get().getFirstName());
+                customer.setUser(employeeOptional.get().getUser());
+                customer = customerRepository.save(customer);
+                return customer;
+            } else {
+                throw new UsernameNotFoundException("could not find the user '" + username + "'");
+            }
+        }
+    }
 
+    @Transactional
+    @PreAuthorize("hasAnyAuthority('CUSTOMER','ADMIN')")
+    public Order createOrder(OrderInput orderInput) {
         Order order = new Order();
         for (OrderDetails orderDetail : getOrderDetails(orderInput)) {
             order.addOrderDetail(orderDetail);
         }
         order.setOrderDate(orderInput.getDate());
         order.setAddress(getAddress(orderInput));
-        order.setCustomer(customerRepository.findAll().get(0));//TODO add customer by getting the logged customer
+        order.setCustomer(getCustomer());
         order.setEmployee(employeeRepository.getOne(orderRepository.employeeIdWithLeastOrders()));
 
         List<ProductsLocations> locations = quantityStrategy.
