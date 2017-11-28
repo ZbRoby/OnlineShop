@@ -8,6 +8,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import ro.msg.learning.shop.entities.*;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
@@ -15,13 +19,11 @@ import ro.msg.learning.shop.models.OrderInput;
 import ro.msg.learning.shop.repositories.*;
 import ro.msg.learning.shop.services.strategies.QuantityStrategy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -94,8 +96,8 @@ public class OrderCreatorTest {
         );
     }
 
-
     private void setUpMockCustomerRepository() {
+        when(mockCustomerRepository.findOptionalByUserUsername(anyString())).thenReturn(Optional.of(new Customer()));
         when(mockCustomerRepository.findAll()).then(invocation -> {
             ArrayList<Customer> ret = new ArrayList<>();
             ret.add(null);
@@ -129,6 +131,7 @@ public class OrderCreatorTest {
     public void emptyProductMapTest() {
         Address address = new Address("country", "city", "street", "zipCode", "other");
         OrderInput orderInput = new OrderInput(new HashMap<>(), null, address);
+        SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("1", new User("name", "password", AuthorityUtils.createAuthorityList("CUSTOMER")), AuthorityUtils.createAuthorityList("CUSTOMER")));
         Order actual = orderCreator.createOrder(orderInput);
         Assert.assertEquals(0, actual.getOrdersDetails().size());
     }
@@ -143,6 +146,7 @@ public class OrderCreatorTest {
         hashMap.put(10L, 1L);
         hashMap.put(17L, 1L);
         orderInput.setProductMap(hashMap);
+        SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("1", new User("name", "password", AuthorityUtils.createAuthorityList("CUSTOMER")), AuthorityUtils.createAuthorityList("CUSTOMER")));
         Order actual = orderCreator.createOrder(orderInput);
         Assert.assertEquals(3, actual.getOrdersDetails().size());
     }
