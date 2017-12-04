@@ -20,5 +20,5 @@ spring:
 
     main.web-environment: true
 
-onlineShop.strategies.quantityStrategyType: GREEDY
+onlineShop.strategies.quantityStrategyType: PROXIMITY
 

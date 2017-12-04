@@ -79,6 +79,7 @@ public class OrderCreator {
                 customer.setLastName(employeeOptional.get().getLastName());
                 customer.setFirstName(employeeOptional.get().getFirstName());
                 customer.setUser(employeeOptional.get().getUser());
+                customer.setAddress(employeeOptional.get().getAddress());
                 customer = customerRepository.save(customer);
                 return customer;
             } else {
