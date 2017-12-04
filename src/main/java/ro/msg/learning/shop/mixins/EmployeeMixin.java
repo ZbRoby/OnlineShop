@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Order;
 import ro.msg.learning.shop.entities.User;
 import ro.msg.learning.shop.entities.enums.Title;
@@ -35,6 +36,9 @@ public interface EmployeeMixin {
 
     @JsonProperty("Title")
     Title getTitle();
+
+    @JsonProperty("Address")
+    Address getAddress();
 
     @JsonIgnore
     List<Order> getOrders();

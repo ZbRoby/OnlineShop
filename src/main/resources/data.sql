@@ -151,26 +151,26 @@ insert into CUSTOMERS (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID) values (20,
 
 -- EMPLOYEES
 
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (1, 'Beverlie', 'Wallett' , 21, '308-327-6450', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (2, 'Agace', 'Mucillo'    , 22, '946-834-2845', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (3, 'Callida', 'Kryszka'  , 23, '799-964-5613', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (4, 'Town', 'Dybald'      , 24, '786-249-8810', 'MANAGER');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (5, 'Beilul', 'Trembey'   , 25, '482-519-0617', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (6, 'Kayle', 'Koles'      , 26, '500-962-8730', 'MANAGER');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (7, 'Lynde', 'Girtin'     , 27, '632-527-0367', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (8, 'Veradis', 'Blundan'  , 28, '492-732-8174', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (9, 'Tybi', 'Matushevitz' , 29, '136-557-0556', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (10, 'Bess', 'Lorimer'    , 30, '973-869-6721', 'MANAGER');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (11, 'Hyacintha', 'Lowers', 31, '497-360-5771', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (12, 'Gran', 'Bostick'    , 32, '168-761-1873', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (13, 'Dominga', 'Ridding' , 33, '423-197-4594', 'MANAGER');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (14, 'Darn', 'Whitter'    , 34, '966-951-8491', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (15, 'Karyl', 'Well'      , 35, '504-875-4446', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (16, 'Viviana', 'Patrone' , 36, '303-712-9818', 'INTERN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (17, 'Christos', 'Wadlow' , 37, '430-122-1466', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (18, 'Dewitt', 'Vallens'  , 38, '862-716-6066', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (19, 'Gerald', 'Falconer' , 39, '183-886-6691', 'SALESMAN');
-insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID, HOME_PHONE, Title) values (20, 'Scarlet', 'Pirrey'  , 40, '625-133-9709', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (1, 'Beverlie', 'Wallett' , 21, 10, '308-327-6450', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (2, 'Agace', 'Mucillo'    , 22, 17, '946-834-2845', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (3, 'Callida', 'Kryszka'  , 23, 16, '799-964-5613', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (4, 'Town', 'Dybald'      , 24, 12, '786-249-8810', 'MANAGER');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (5, 'Beilul', 'Trembey'   , 25, 10, '482-519-0617', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (6, 'Kayle', 'Koles'      , 26, 12, '500-962-8730', 'MANAGER');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (7, 'Lynde', 'Girtin'     , 27, 20, '632-527-0367', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (8, 'Veradis', 'Blundan'  , 28,  3, '492-732-8174', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (9, 'Tybi', 'Matushevitz' , 29,  7, '136-557-0556', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (10, 'Bess', 'Lorimer'    , 30,  8, '973-869-6721', 'MANAGER');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (11, 'Hyacintha', 'Lowers', 31, 10, '497-360-5771', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (12, 'Gran', 'Bostick'    , 32, 18, '168-761-1873', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (13, 'Dominga', 'Ridding' , 33, 11, '423-197-4594', 'MANAGER');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (14, 'Darn', 'Whitter'    , 34, 12, '966-951-8491', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (15, 'Karyl', 'Well'      , 35, 19, '504-875-4446', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (16, 'Viviana', 'Patrone' , 36,  8, '303-712-9818', 'INTERN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (17, 'Christos', 'Wadlow' , 37, 12, '430-122-1466', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (18, 'Dewitt', 'Vallens'  , 38,  2, '862-716-6066', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (19, 'Gerald', 'Falconer' , 39, 11, '183-886-6691', 'SALESMAN');
+insert into EMPLOYEES (ID, FIRST_NAME, LAST_NAME,USER_ID,ADDRESS_ID, HOME_PHONE, Title) values (20, 'Scarlet', 'Pirrey'  , 40,  9, '625-133-9709', 'SALESMAN');
 
 -- LOCATIONS
 

@@ -40,6 +40,9 @@ public class Employee implements Serializable {
     @OneToOne
     private User user;
 
+    @ManyToOne
+    private Address address;
+
     @OneToMany(mappedBy = "employee")
     private List<Order> orders = new ArrayList<>();
 
