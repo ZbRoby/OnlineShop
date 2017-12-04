@@ -3,7 +3,6 @@ package ro.msg.learning.shop.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +68,7 @@ public class OrderCreator {
     }
 
     private Customer getCustomer() {
-        String username = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<Customer> customerOptional = customerRepository.findOptionalByUserUsername(username);
         if (customerOptional.isPresent()) {
             return customerOptional.get();

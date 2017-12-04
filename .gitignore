@@ -47,3 +47,7 @@ nbactions.xml
 .settings/
 .metadata/ 
 /ClientForSpringREST/nbproject/
+
+# Other
+proxy.txt
+googleApi.txt
