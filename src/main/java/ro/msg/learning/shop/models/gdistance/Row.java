@@ -15,5 +15,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Row {
-    List<Element> elements = new ArrayList<>();
+    private List<Element> elements = new ArrayList<>();
 }

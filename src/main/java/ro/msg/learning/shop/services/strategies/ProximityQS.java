@@ -101,7 +101,7 @@ public class ProximityQS implements QuantityStrategy {
                 case ZERO_RESULTS:
                     others.add(0, locations);
                     break;
-                case NOT_FOUND:
+                default:
                     others.add(locations);
                     break;
             }
