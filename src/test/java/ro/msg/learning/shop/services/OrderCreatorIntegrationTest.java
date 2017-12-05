@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@WithMockUser(username = "admin",authorities = "ADMIN")
+@WithMockUser(username = "admin", authorities = "ADMIN")
 public class OrderCreatorIntegrationTest {
 
     @Autowired

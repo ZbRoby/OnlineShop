@@ -14,7 +14,7 @@ import ro.msg.learning.shop.repositories.ProductRepository;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@WithMockUser(username = "admin",authorities = "ADMIN")
+@WithMockUser(username = "admin", authorities = "ADMIN")
 public class StockExporterIntegrationTest {
 
     @Autowired
