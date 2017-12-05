@@ -20,9 +20,24 @@ public class ProductPresenterControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    private String getToken() {
+        try {
+            String token = testRestTemplate.withBasicAuth("android", "123456")
+                .postForObject("/oauth/token?" +
+                    "grant_type=" + "password" +
+                    "&username=" + "customer" +
+                    "&password=" + "test" +
+                    "", null, String.class);
+            return token.split("\"")[3];
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ProductPresenterControllerTestError";
+        }
+    }
+
     @Test
     public void seeProductsTest() {
-        ResponseEntity<ShelfProduct[]> forEntity = testRestTemplate.getForEntity("/rest/seeProducts", ShelfProduct[].class);
+        ResponseEntity<ShelfProduct[]> forEntity = testRestTemplate.getForEntity("/rest/seeProducts?access_token=" + getToken(), ShelfProduct[].class);
         Assert.assertNotNull(forEntity.getBody());
         if (forEntity.getBody().length >= 1) {
             Assert.assertNotEquals(0, forEntity.getBody()[0].getProduct().getId());

@@ -56,10 +56,12 @@ public class ProximityQSTest {
     private void addAddress(List<ProductsLocations> productsLocations) {
         for (ProductsLocations productsLocation : productsLocations) {
             if (productsLocation.getLocationId() == 7L) {
-                productsLocation.setLocation(getLocation("Cibebek", "Indonesia"));
+                productsLocation.setLocation(getLocation("Cibebek", "Indonesia"));//{ "distance" : 3961323 }
             }
             if (productsLocation.getLocationId() == 8L) {
-                productsLocation.setLocation(getLocation("Rancabuaya", "Indonesia"));
+                productsLocation.setLocation(getLocation("Rancabuaya", "Indonesia"));//{ "distance" :
+
+                // 4119896 }
             }
         }
     }

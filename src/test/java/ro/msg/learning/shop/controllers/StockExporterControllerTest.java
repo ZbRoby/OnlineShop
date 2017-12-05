@@ -20,24 +20,31 @@ public class StockExporterControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
+    private String getToken() {
+        try {
+            String token = testRestTemplate.withBasicAuth("android", "123456")
+                .postForObject("/oauth/token?" +
+                    "grant_type=" + "password" +
+                    "&username=" + "admin" +
+                    "&password=" + "test" +
+                    "", null, String.class);
+            return token.split("\"")[3];
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "StockExporterControllerTestError";
+        }
+    }
+
     @Test
     public void getStockTest() {
-        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock", PLQList.class);
-        Assert.assertNotNull(forEntity.getBody());
-        if (forEntity.getBody().getList().size() >= 1) {
-            Assert.assertNotEquals(0, forEntity.getBody().getList().get(0).getProductId());
-        }
+        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock?access_token=" + getToken(), PLQList.class);
         Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
     }
 
     @Test
     public void getStockParameterTest() {
         long id = 1;
-        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock/" + id, PLQList.class);
-        Assert.assertNotNull(forEntity.getBody());
-        if (forEntity.getBody().getList().size() >= 1) {
-            Assert.assertNotEquals(0, forEntity.getBody().getList().get(0).getProductId());
-        }
+        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock/" + id + "?access_token=" + getToken(), PLQList.class);
         Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
     }
 }
