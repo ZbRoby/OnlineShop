@@ -6,23 +6,27 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ro.msg.learning.shop.models.PLQList;
-import ro.msg.learning.shop.repositories.ProductRepository;
+import ro.msg.learning.shop.entities.Role;
+import ro.msg.learning.shop.entities.User;
+import ro.msg.learning.shop.repositories.RoleRepository;
+import ro.msg.learning.shop.repositories.UserRepository;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StockExporterControllerTest {
+public class ElevateControllerTest {
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Autowired
-    private ProductRepository productRepository;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     private String getToken() {
         try {
@@ -35,22 +39,17 @@ public class StockExporterControllerTest {
             return token.split("\"")[3];
         } catch (Exception e) {
             e.printStackTrace();
-            return "StockExporterControllerTestError";
+            return "ElevateControllerTestError";
         }
     }
 
     @Test
-    public void getStockTest() {
-        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock?access_token=" + getToken(), PLQList.class);
-        Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
-    }
-
-    @Test
-    public void getStockParameterTest() {
-        if (productRepository.count() > 0) {
-            long id = 1;
-            ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock/" + id + "?access_token=" + getToken(), PLQList.class);
-            Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
+    public void elevateTest() {
+        Role admin = roleRepository.findByName("ADMIN");
+        long id = userRepository.findAll().stream().filter(x -> !x.getRoles().contains(admin)).findFirst().orElse(new User()).getId();
+        if (id != 0) {
+            testRestTemplate.put("/rest/elevate/" + id + "?access_token=" + getToken(), null);
+            Assert.assertTrue("Elevate", userRepository.findOne(id).getRoles().contains(admin));
         }
     }
 }
