@@ -9,7 +9,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ro.msg.learning.shop.entities.Role;
 import ro.msg.learning.shop.repositories.UserRepository;
 
 /**
@@ -37,11 +36,11 @@ class OAuth2SecurityConfiguration extends GlobalAuthenticationConfigurerAdapter 
         return username ->
             userRepository.findOptionalByUsername(username)
                 .map(a ->
-                    new User(a.getUsername(), a.getPassword(), true, true, true, true,
-                        AuthorityUtils.createAuthorityList(a.getRoles().stream().map(Role::getName).toArray(String[]::new)))
+                    new User(a.getUsername(), a.getPassword(),
+                        true, true, true, true,
+                        AuthorityUtils.createAuthorityList(userRepository.findRolesNameByUserId(a.getId()).toArray(new String[0])))
                 )
                 .orElseThrow(
                     () -> new UsernameNotFoundException("could not find the user '" + username + "'"));
     }
-
 }

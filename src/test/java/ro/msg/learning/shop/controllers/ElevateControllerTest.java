@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import ro.msg.learning.shop.entities.Role;
 import ro.msg.learning.shop.entities.User;
 import ro.msg.learning.shop.repositories.RoleRepository;
 import ro.msg.learning.shop.repositories.UserRepository;
+
+import java.util.ArrayList;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -45,11 +46,10 @@ public class ElevateControllerTest {
 
     @Test
     public void elevateTest() {
-        Role admin = roleRepository.findByName("ADMIN");
-        long id = userRepository.findAll().stream().filter(x -> !x.getRoles().contains(admin)).findFirst().orElse(new User()).getId();
-        if (id != 0) {
-            testRestTemplate.put("/rest/elevate/" + id + "?access_token=" + getToken(), null);
-            Assert.assertTrue("Elevate", userRepository.findOne(id).getRoles().contains(admin));
-        }
+        User u = new User("test", "test", new ArrayList<>());
+        u = userRepository.save(u);
+        testRestTemplate.put("/rest/elevate/" + u.getId() + "?access_token=" + getToken(), null);
+        Assert.assertTrue("Elevate", userRepository.findRolesNameByUserId(u.getId()).contains(roleRepository.findByName("ADMIN").getName()));
+        userRepository.delete(u.getId());
     }
 }

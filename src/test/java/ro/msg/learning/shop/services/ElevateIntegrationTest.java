@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
-import ro.msg.learning.shop.entities.Role;
 import ro.msg.learning.shop.entities.User;
-import ro.msg.learning.shop.repositories.RoleRepository;
 import ro.msg.learning.shop.repositories.UserRepository;
-
-import java.util.logging.Logger;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -30,20 +26,15 @@ public class ElevateIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
-
     @Test
     public void elevateTest() {
-        Role admin = roleRepository.findByName("ADMIN");
         for (User user : userRepository.findAll()) {
-            if (!user.getRoles().contains(admin)) {
+            if (!userRepository.findRolesNameByUserId(user.getId()).contains("ADMIN")) {
                 elevate.elevate(user.getId());
             }
         }
         for (User user : userRepository.findAll()) {
-            Logger.getGlobal().info(user.toString());
-            Assert.assertTrue(user.getRoles().contains(admin));
+            Assert.assertTrue(userRepository.findRolesNameByUserId(user.getId()).contains("ADMIN"));
         }
     }
 }

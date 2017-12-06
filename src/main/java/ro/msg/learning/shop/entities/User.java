@@ -1,9 +1,9 @@
 package ro.msg.learning.shop.entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +16,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(doNotUseGetters = true, exclude = "roles")
+@ToString(doNotUseGetters = true, exclude = "roles")
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
@@ -27,9 +29,7 @@ public class User implements Serializable {
     private String username;
     @Column(nullable = false)
     private String password;
-
-    @Fetch(FetchMode.SUBSELECT)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
         name = "USERS_JOIN_ROLES",
         joinColumns = @JoinColumn(name = "USER_ID", nullable = false),

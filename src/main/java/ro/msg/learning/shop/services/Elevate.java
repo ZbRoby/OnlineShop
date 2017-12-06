@@ -8,6 +8,9 @@ import ro.msg.learning.shop.entities.User;
 import ro.msg.learning.shop.repositories.RoleRepository;
 import ro.msg.learning.shop.repositories.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
@@ -25,9 +28,11 @@ public class Elevate {
     @PreAuthorize("hasAuthority('ADMIN')")
     public void elevate(long id) {
         User user = userRepository.findOne(id);
-        Role role = roleRepository.findByName("ADMIN");
-        if (!user.getRoles().contains(role)) {
-            user.getRoles().add(role);
+        Role adminRole = roleRepository.findByName("ADMIN");
+        List<Role> roleList = userRepository.findRolesNameByUserId(id).stream().map(roleRepository::findByName).collect(Collectors.toList());
+        if (!roleList.contains(adminRole)) {
+            roleList.add(adminRole);
+            user.setRoles(roleList);
         }
         userRepository.save(user);
     }
