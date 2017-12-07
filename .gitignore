@@ -51,3 +51,4 @@ nbactions.xml
 # Other
 proxy.txt
 googleApi.txt
+applicationConfidential.properties
