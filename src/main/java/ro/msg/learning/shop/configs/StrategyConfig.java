@@ -51,7 +51,7 @@ public class StrategyConfig {
     @Bean
     public RestTemplate getRestTemplate() {
         RestTemplate temp;
-        if (!proxyDomain.equals("NONE") && proxyPort != -1) {
+        if (!"NONE".equals(proxyDomain) && proxyPort != -1) {
             SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
             requestFactory.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyDomain, proxyPort)));
             temp = new RestTemplate(requestFactory);
