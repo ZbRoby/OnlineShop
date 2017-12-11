@@ -1,21 +1,27 @@
 package ro.msg.learning.shop.services.strategies;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Customer;
 import ro.msg.learning.shop.entities.Location;
 import ro.msg.learning.shop.entities.ProductsLocations;
+import ro.msg.learning.shop.models.LocationDistance;
+import ro.msg.learning.shop.models.gdistance.Element;
+import ro.msg.learning.shop.models.gdistance.TimeAndSpace;
+import ro.msg.learning.shop.models.gdistance.enums.ElementGoogleStatus;
 import ro.msg.learning.shop.repositories.CustomerRepository;
+import ro.msg.learning.shop.utils.DistanceCalculator;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -24,15 +30,57 @@ import java.util.Optional;
 public class ProximityQSTest {
 
     @Mock
+    private Authentication authentication;
+
+    @Mock
     private CustomerRepository customerRepository;
+
+    @Mock
+    private DistanceCalculator distanceCalculator;
 
     private QuantityStrategy quantityStrategy;
 
 
-    public ProximityQSTest() {
-        MockitoAnnotations.initMocks(this);
+    private void mockCustomerRepository() {
         Mockito.when(customerRepository.findOptionalByUserUsername(Mockito.anyString())).thenReturn(Optional.of(getCustomer()));
-        quantityStrategy = new ProximityQS(customerRepository);
+    }
+
+    private void mockDistanceCalculator() {
+        Mockito.when(distanceCalculator.sortLocations(Mockito.any(Address.class),
+            Mockito.anyListOf(ProductsLocations.class))).thenAnswer(
+            answer -> {
+                List<ProductsLocations> list = answer.getArgumentAt(1, List.class);
+                List<LocationDistance> returnList = new ArrayList<>();
+                for (ProductsLocations productsLocation : list) {
+                    if (productsLocation.getLocationId() == 7L) {//{distance:3961323}
+                        returnList.add(getLocationDistance(productsLocation, 3961323));
+                    }
+                    if (productsLocation.getLocationId() == 8L) {//{distance:4119896}
+                        returnList.add(getLocationDistance(productsLocation, 4119896));
+                    }
+                }
+                returnList.sort(Comparator.comparingDouble(o -> o.getDistance().getDistance().getValue()));
+                return returnList.stream().map(LocationDistance::getLocation).collect(Collectors.toList());
+
+            }
+        );
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        mockCustomerRepository();
+        mockDistanceCalculator();
+        quantityStrategy = new ProximityQS(customerRepository, distanceCalculator);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private LocationDistance getLocationDistance(ProductsLocations productsLocations, double distance) {
+        LocationDistance locationDistance = new LocationDistance();
+        locationDistance.setLocation(productsLocations);
+        TimeAndSpace distanceTimeAndSpace = new TimeAndSpace(null, distance);
+        locationDistance.setDistance(new Element(distanceTimeAndSpace, null, ElementGoogleStatus.OK));
+        return locationDistance;
     }
 
     private Location getLocation(String city, String country) {
@@ -56,12 +104,10 @@ public class ProximityQSTest {
     private void addAddress(List<ProductsLocations> productsLocations) {
         for (ProductsLocations productsLocation : productsLocations) {
             if (productsLocation.getLocationId() == 7L) {
-                productsLocation.setLocation(getLocation("Cibebek", "Indonesia"));//{ "distance" : 3961323 }
+                productsLocation.setLocation(getLocation("Cibebek", "Indonesia"));//{distance: 3961323}
             }
             if (productsLocation.getLocationId() == 8L) {
-                productsLocation.setLocation(getLocation("Rancabuaya", "Indonesia"));//{ "distance" :
-
-                // 4119896 }
+                productsLocation.setLocation(getLocation("Rancabuaya", "Indonesia"));//{distance:4119896}
             }
         }
     }

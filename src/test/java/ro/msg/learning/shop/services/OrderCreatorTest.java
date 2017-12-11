@@ -52,6 +52,7 @@ public class OrderCreatorTest {
     @Mock
     private QuantityStrategy quantityStrategy;
 
+
     private List<ProductsLocations> productsLocationsList;
 
     private void setUpProductsLocationsList() {

@@ -14,7 +14,6 @@ import ro.msg.learning.shop.repositories.ProductRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.when;
@@ -79,7 +78,6 @@ public class ProductPresenterTest {
     @Test
     public void getProduct() {
         List<ShelfProduct> actual = productPresenter.getProductList();
-        actual.forEach(x -> Logger.getGlobal().info(x.toString()));
         Assert.assertEquals(productsLocationsList.size(), actual.size());
     }
 }

@@ -1,20 +1,29 @@
 package ro.msg.learning.shop.services;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Order;
+import ro.msg.learning.shop.entities.ProductsLocations;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
 import ro.msg.learning.shop.models.OrderInput;
+import ro.msg.learning.shop.services.strategies.QuantityStrategy;
+import ro.msg.learning.shop.utils.DistanceCalculator;
 
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
@@ -24,8 +33,23 @@ import java.util.HashMap;
 @WithMockUser(username = "admin", authorities = "ADMIN")
 public class OrderCreatorIntegrationTest {
 
+    @Mock
+    private DistanceCalculator distanceCalculator;
+
+    @Autowired
+    @InjectMocks
+    private QuantityStrategy quantityStrategy;
+
     @Autowired
     private OrderCreator orderCreator;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        Mockito.when(distanceCalculator.sortLocations(Mockito.any(Address.class), Mockito.anyListOf(ProductsLocations.class))).thenAnswer(
+            answer -> answer.getArgumentAt(1, List.class)
+        );
+    }
 
     @Test
     public void emptyProductMapTest() {
