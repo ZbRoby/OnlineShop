@@ -35,14 +35,14 @@ public class ProductPresenterTest {
         productsLocationsList = new ArrayList<>();
         productsLocationsList.add(new ProductsLocations(10L, 11L, 1L));
         productsLocationsList.add(new ProductsLocations(17L, 10L, 1L));
-        productsLocationsList.add(new ProductsLocations(12L, 11L, 3L));
+        productsLocationsList.add(new ProductsLocations(12L, 10L, 3L));
         productsLocationsList.add(new ProductsLocations(20L, 13L, 1L));
         productsLocationsList.add(new ProductsLocations(10L, 13L, 2L));
-        productsLocationsList.add(new ProductsLocations(15L, 14L, 2L));
+        productsLocationsList.add(new ProductsLocations(15L, 10L, 2L));
         productsLocationsList.add(new ProductsLocations(18L, 17L, 6L));
         productsLocationsList.add(new ProductsLocations(11L, 17L, 1L));
         productsLocationsList.add(new ProductsLocations(14L, 18L, 2L));
-        productsLocationsList.add(new ProductsLocations(13L, 18L, 1L));
+        productsLocationsList.add(new ProductsLocations(13L, 10L, 1L));
         productsLocationsList.add(new ProductsLocations(16L, 20L, 2L));
         productsLocationsList.add(new ProductsLocations(16L, 20L, 1L));
         productsLocationsList.add(new ProductsLocations(12L, 20L, 2L));
