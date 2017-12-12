@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.controllers;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.msg.learning.shop.entities.Address;
 import ro.msg.learning.shop.entities.Order;
+import ro.msg.learning.shop.local.util.TokenGetter;
 import ro.msg.learning.shop.models.OrderInput;
 
 import java.sql.Date;
@@ -27,23 +29,13 @@ public class OrderCreatorControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    public OrderCreatorControllerTest() {
-        MockitoAnnotations.initMocks(this);
-    }
+    private String token;
 
-    private String getToken() {
-        try {
-            String token = testRestTemplate.withBasicAuth("android", "123456")
-                .postForObject("/oauth/token?" +
-                    "grant_type=" + "password" +
-                    "&username=" + "customer" +
-                    "&password=" + "test" +
-                    "", null, String.class);
-            return token.split("\"")[3];
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "OrderCreatorControllerTestError";
-        }
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        TokenGetter tokenGetter = new TokenGetter(testRestTemplate);
+        token = tokenGetter.getCustomerToken();
     }
 
     @Test
@@ -56,7 +48,7 @@ public class OrderCreatorControllerTest {
         orderInput.setDate(Date.valueOf("1995-10-10"));
         orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
         orderInput.setProductMap(productQuantity);
-        ResponseEntity<Order> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + getToken(), orderInput, Order.class);
+        ResponseEntity<Order> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + token, orderInput, Order.class);
         Assert.assertNotEquals(0, order.getBody().getId());
         Assert.assertTrue(order.getStatusCode().is2xxSuccessful());
     }
@@ -69,7 +61,7 @@ public class OrderCreatorControllerTest {
         orderInput.setDate(Date.valueOf("1995-10-10"));
         orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
         orderInput.setProductMap(productQuantity);
-        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + getToken(), orderInput, String.class);
+        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + token, orderInput, String.class);
         Assert.assertNotNull(order.getBody());
         Assert.assertTrue(order.getStatusCode().is4xxClientError());
     }
@@ -82,7 +74,7 @@ public class OrderCreatorControllerTest {
         orderInput.setDate(Date.valueOf("1995-10-10"));
         orderInput.setAddress(new Address("C", "c", "s", "z", "o"));
         orderInput.setProductMap(productQuantity);
-        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + getToken(), orderInput, String.class);
+        ResponseEntity<String> order = testRestTemplate.postForEntity("/rest/orderCreator?access_token=" + token, orderInput, String.class);
         Assert.assertNotNull(order.getBody());
         Assert.assertTrue(order.getStatusCode().is4xxClientError());
     }

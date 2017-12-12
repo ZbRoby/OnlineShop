@@ -1,13 +1,16 @@
 package ro.msg.learning.shop.controllers;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import ro.msg.learning.shop.local.util.TokenGetter;
 import ro.msg.learning.shop.models.ShelfProduct;
 
 /**
@@ -20,24 +23,18 @@ public class ProductPresenterControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 
-    private String getToken() {
-        try {
-            String token = testRestTemplate.withBasicAuth("android", "123456")
-                .postForObject("/oauth/token?" +
-                    "grant_type=" + "password" +
-                    "&username=" + "customer" +
-                    "&password=" + "test" +
-                    "", null, String.class);
-            return token.split("\"")[3];
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "ProductPresenterControllerTestError";
-        }
+    private String token;
+
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        TokenGetter tokenGetter = new TokenGetter(testRestTemplate);
+        token = tokenGetter.getCustomerToken();
     }
 
     @Test
     public void seeProductsTest() {
-        ResponseEntity<ShelfProduct[]> forEntity = testRestTemplate.getForEntity("/rest/seeProducts?access_token=" + getToken(), ShelfProduct[].class);
+        ResponseEntity<ShelfProduct[]> forEntity = testRestTemplate.getForEntity("/rest/seeProducts?access_token=" + token, ShelfProduct[].class);
         Assert.assertNotNull(forEntity.getBody());
         if (forEntity.getBody().length >= 1) {
             Assert.assertNotEquals(0, forEntity.getBody()[0].getProduct().getId());

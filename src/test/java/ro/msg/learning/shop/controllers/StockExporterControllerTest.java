@@ -1,6 +1,7 @@
 package ro.msg.learning.shop.controllers;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import ro.msg.learning.shop.local.util.TokenGetter;
 import ro.msg.learning.shop.models.PLQList;
 import ro.msg.learning.shop.repositories.ProductRepository;
 
@@ -24,24 +26,17 @@ public class StockExporterControllerTest {
     @Autowired
     private ProductRepository productRepository;
 
-    private String getToken() {
-        try {
-            String token = testRestTemplate.withBasicAuth("android", "123456")
-                .postForObject("/oauth/token?" +
-                    "grant_type=" + "password" +
-                    "&username=" + "admin" +
-                    "&password=" + "test" +
-                    "", null, String.class);
-            return token.split("\"")[3];
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "StockExporterControllerTestError";
-        }
+    private String token;
+
+    @Before
+    public void setUp() throws Exception {
+        TokenGetter tokenGetter = new TokenGetter(testRestTemplate);
+        token = tokenGetter.getAdminToken();
     }
 
     @Test
     public void getStockTest() {
-        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock?access_token=" + getToken(), PLQList.class);
+        ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock?access_token=" + token, PLQList.class);
         Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
     }
 
@@ -49,7 +44,7 @@ public class StockExporterControllerTest {
     public void getStockParameterTest() {
         if (productRepository.count() > 0) {
             long id = 1;
-            ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock/" + id + "?access_token=" + getToken(), PLQList.class);
+            ResponseEntity<PLQList> forEntity = testRestTemplate.getForEntity("/rest/stock/" + id + "?access_token=" + token, PLQList.class);
             Assert.assertTrue(forEntity.getStatusCode().is2xxSuccessful());
         }
     }
