@@ -2,8 +2,6 @@ package ro.msg.learning.shop.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,7 +35,6 @@ public class Order implements Serializable {
     @OneToOne
     private Address address;
 
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetails> ordersDetails = new ArrayList<>();
 
