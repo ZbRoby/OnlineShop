@@ -21,11 +21,13 @@ public class GoogleDistanceCalculator implements DistanceCalculator {
     private final String distanceApiKey;
     private Address destination;
     private int splitNr;
+    private String baseUrl;
 
-    public GoogleDistanceCalculator(RestTemplate restTemplate, String distanceApiKey, int splitNr) {
+    public GoogleDistanceCalculator(RestTemplate restTemplate, String distanceApiKey, String baseUrl, int splitNr) {
         this.restTemplate = restTemplate;
         this.distanceApiKey = distanceApiKey;
         this.splitNr = splitNr;
+        this.baseUrl = baseUrl;
     }
 
     private String getCityAndCountry(Address productsLocations) {
@@ -37,7 +39,8 @@ public class GoogleDistanceCalculator implements DistanceCalculator {
     }
 
     private String getUrl(List<ProductsLocations> origins) {
-        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/distancematrix/json?");
+        StringBuilder stringBuilder = new StringBuilder(baseUrl);
+        stringBuilder.append("/json?");
         stringBuilder.append("key=").append(distanceApiKey);
         stringBuilder.append("&origins=");
         for (ProductsLocations origin : origins) {

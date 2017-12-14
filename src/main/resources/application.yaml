@@ -19,6 +19,3 @@ spring:
     data.rest.base-path: /rest
 
     main.web-environment: true
-
-onlineShop.strategies.quantityStrategyType: PROXIMITY
-
