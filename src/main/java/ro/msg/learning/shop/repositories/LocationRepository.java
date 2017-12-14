@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.msg.learning.shop.entities.Location;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
@@ -17,5 +20,7 @@ public interface LocationRepository extends JpaRepository<Location, Long> {
 
     @Query(value = "SELECT LOCATION_ID FROM PRODUCTS_LOCATIONS WHERE PRODUCT_ID=?1 order by QUANTITY DESC Limit 1", nativeQuery = true)
     Long findOneLocationIdWithHighestQuantityForProduct(Long idProduct);
+
+    List<Location> findAllByIdIn(Set<Long> ids);
 
 }

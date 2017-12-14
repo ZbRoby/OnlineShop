@@ -30,7 +30,7 @@ import java.util.List;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@WithMockUser(username = "admin", authorities = "ADMIN")
+@WithMockUser(username = "customer", authorities = "CUSTOMER")
 public class OrderCreatorIntegrationTest {
 
     @Mock

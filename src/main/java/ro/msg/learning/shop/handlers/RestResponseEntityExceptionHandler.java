@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import ro.msg.learning.shop.exceptions.NoCustomerException;
 import ro.msg.learning.shop.exceptions.NoSingleLocationFoundException;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
@@ -35,6 +36,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     @ExceptionHandler(value = QuantityExceedsStockException.class)
     protected ResponseEntity<Object> quantityExceedsStockHandler(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Quantity exceeds stock ... " + ex.getMessage();
+        return handleExceptionInternal(ex, bodyOfResponse,
+            new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
+    @ExceptionHandler(value = NoCustomerException.class)
+    protected ResponseEntity<Object> noCustomerExceptionHandler(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = "customer does not exist ... \nMaybe you did not link a customer to your account ... " + ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
             new HttpHeaders(), HttpStatus.CONFLICT, request);
     }

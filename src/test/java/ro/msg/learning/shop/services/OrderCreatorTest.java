@@ -17,13 +17,13 @@ import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
 import ro.msg.learning.shop.models.OrderInput;
 import ro.msg.learning.shop.repositories.*;
+import ro.msg.learning.shop.services.strategies.GreedyQS;
 import ro.msg.learning.shop.services.strategies.QuantityStrategy;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.when;
 
 /**
@@ -47,13 +47,17 @@ public class OrderCreatorTest {
     private OrderRepository mockOrderRepository;
 
     @Mock
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository mockEmployeeRepository;
 
     @Mock
-    private QuantityStrategy quantityStrategy;
+    private LocationRepository mockLocationRepository;
+
+    @Mock
+    private QuantityStrategy mockQuantityStrategy;
 
 
     private List<ProductsLocations> productsLocationsList;
+
 
     private void setUpProductsLocationsList() {
         productsLocationsList = new ArrayList<>();
@@ -70,6 +74,38 @@ public class OrderCreatorTest {
         productsLocationsList.add(new ProductsLocations(16L, 20L, 2L));
         productsLocationsList.add(new ProductsLocations(16L, 20L, 1L));
         productsLocationsList.add(new ProductsLocations(12L, 20L, 2L));
+    }
+
+    private List<Location> getLocations(List<ProductsLocations> productsLocations) {
+        ArrayList<Location> locations = new ArrayList<>();
+        for (ProductsLocations productsLocation : productsLocations) {
+            Location location = new Location();
+            location.setId(productsLocation.getLocationId());
+            locations.add(location);
+        }
+        return locations;
+    }
+
+    private List<Product> getProducts(List<ProductsLocations> productsLocations) {
+        ArrayList<Product> products = new ArrayList<>();
+        for (ProductsLocations productsLocation : productsLocations) {
+            Product product = new Product();
+            product.setId(productsLocation.getProductId());
+            products.add(product);
+        }
+        return products;
+    }
+
+    private void setUpMockLocationRepository() {
+        when(mockLocationRepository.findAllByIdIn(anySetOf(Long.class))).thenAnswer(
+            answer -> getLocations(productsLocationsList.stream().filter(x -> answer.getArgumentAt(0, Set.class).contains(x.getLocationId())).collect(Collectors.toList()))
+        );
+    }
+
+    private void setUpMockQuantityStrategy() {
+        when(mockQuantityStrategy.getLocations(anyMapOf(Long.class, Long.class), anyListOf(ProductsLocations.class))).thenAnswer(
+            answer -> new GreedyQS().getLocations(answer.getArgumentAt(0, Map.class), answer.getArgumentAt(1, List.class))
+        );
     }
 
     private void setUpMockProductRepository() {
@@ -94,6 +130,9 @@ public class OrderCreatorTest {
             (Answer<Long>) invocation -> productsLocationsList.stream().
                 filter(x -> x.getProductId().equals(invocation.getArguments()[0])).
                 mapToLong(ProductsLocations::getQuantity).sum()
+        );
+        when(mockProductRepository.findAllByIdIn(anySetOf(Long.class))).thenAnswer(
+            answer -> getProducts(productsLocationsList.stream().filter(x -> answer.getArgumentAt(0, Set.class).contains(x.getProductId())).collect(Collectors.toList()))
         );
     }
 
@@ -121,6 +160,8 @@ public class OrderCreatorTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
+        setUpMockLocationRepository();
+        setUpMockQuantityStrategy();
         setUpProductsLocationsList();
         setUpMockProductRepository();
         setUpMockCustomerRepository();
@@ -149,7 +190,7 @@ public class OrderCreatorTest {
         orderInput.setProductMap(hashMap);
         SecurityContextHolder.getContext().setAuthentication(new AnonymousAuthenticationToken("1", new User("name", "password", AuthorityUtils.createAuthorityList("CUSTOMER")), AuthorityUtils.createAuthorityList("CUSTOMER")));
         Order actual = orderCreator.createOrder(orderInput);
-        Assert.assertEquals(3, actual.getOrdersDetails().size());
+        Assert.assertEquals(4, actual.getOrdersDetails().size());
     }
 
     @Test(expected = QuantityExceedsStockException.class)

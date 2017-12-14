@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ro.msg.learning.shop.entities.Location;
 import ro.msg.learning.shop.entities.Order;
 import ro.msg.learning.shop.entities.Product;
 
@@ -28,6 +29,9 @@ public interface OrderDetailsMixin {
 
     @JsonProperty("Product")
     Product getProduct();
+
+    @JsonProperty("Location")
+    Location getLocation();
 
     @JsonIgnore
     Order getOrder();

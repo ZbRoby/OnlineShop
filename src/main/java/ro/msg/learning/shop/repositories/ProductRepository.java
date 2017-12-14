@@ -43,4 +43,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "UPDATE PRODUCTS_LOCATIONS SET QUANTITY=QUANTITY-?3 WHERE LOCATION_ID=?1 AND PRODUCT_ID=?2", nativeQuery = true)
     void changeTheQuantity(Long locationId, Long productId, Long quantity);
 
+    List<Product> findAllByIdIn(Set<Long> ids);
 }
