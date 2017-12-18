@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ro.msg.learning.shop.entities.Order;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
  */
@@ -19,4 +22,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Long employeeIdWithMostOrders();
 
     Long countByEmployeeId(Long id);
+
+    List<Order> findAllByOrderDate(Date date);
 }
