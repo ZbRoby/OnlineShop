@@ -102,7 +102,7 @@ public class OrderCreator {
             getLocations(orderInput.getProductMap(), productRepository.
                 findAllProductsLocationsInSet(orderInput.getProductMap().keySet()));
 
-        List<Location> tempLocations = locationRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getProductId).collect(Collectors.toSet()));
+        List<Location> tempLocations = locationRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getLocationId).collect(Collectors.toSet()));
         locations.forEach(x -> x.setLocation(
             tempLocations.stream()
                 .filter(y -> x.getLocationId().equals(y.getId()))
