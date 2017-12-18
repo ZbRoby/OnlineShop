@@ -2,11 +2,13 @@ package ro.msg.learning.shop.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ro.msg.learning.shop.entities.*;
+import ro.msg.learning.shop.exceptions.NoCustomerException;
 import ro.msg.learning.shop.exceptions.ProductNotFoundException;
 import ro.msg.learning.shop.exceptions.QuantityExceedsStockException;
 import ro.msg.learning.shop.models.OrderInput;
@@ -65,11 +67,38 @@ public class OrderCreator {
     }
 
     private Address getAddress(OrderInput orderInput) {
-        Address address = addressRepository.findByCountryAndCityAndStreet(orderInput.getAddress().getCountry(), orderInput.getAddress().getCity(), orderInput.getAddress().getStreet());
-        if (address == null) {
-            address = addressRepository.save(orderInput.getAddress());
+        if (orderInput.getAddress() == null) {
+            return getCustomerAddress();
+        } else {
+            Address address = addressRepository.findByCountryAndCityAndStreet(orderInput.getAddress().getCountry(), orderInput.getAddress().getCity(), orderInput.getAddress().getStreet());
+            if (address == null) {
+                address = addressRepository.save(orderInput.getAddress());
+            }
+            return address;
         }
-        return address;
+    }
+
+    private Address getCustomerAddress() {
+        Optional<Customer> customerOptional;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            customerOptional = customerRepository.findOptionalByUserUsername(authentication.getName());
+        } else {
+            customerOptional = Optional.empty();
+        }
+        if (customerOptional.isPresent()) {
+            return customerOptional.get().getAddress();
+        } else {
+            throw new NoCustomerException();
+        }
+    }
+
+    private void completeTheLocations(List<ProductsLocations> locations) {
+        List<Location> tempLocations = locationRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getLocationId).collect(Collectors.toSet()));
+        locations.forEach(x -> x.setLocation(tempLocations.stream().filter(y -> x.getLocationId().equals(y.getId())).findFirst().orElse(null)));
+
+        List<Product> tempProducts = productRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getProductId).collect(Collectors.toSet()));
+        locations.forEach(x -> x.setProduct(tempProducts.stream().filter(y -> x.getProductId().equals(y.getId())).findFirst().orElse(null)));
     }
 
     private Customer getCustomer() {
@@ -98,23 +127,11 @@ public class OrderCreator {
     public Order createOrder(OrderInput orderInput) {
         validateOrder(orderInput);
 
-        List<ProductsLocations> locations = quantityStrategy.
-            getLocations(orderInput.getProductMap(), productRepository.
-                findAllProductsLocationsInSet(orderInput.getProductMap().keySet()));
-
-        List<Location> tempLocations = locationRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getLocationId).collect(Collectors.toSet()));
-        locations.forEach(x -> x.setLocation(
-            tempLocations.stream()
-                .filter(y -> x.getLocationId().equals(y.getId()))
-                .findFirst()
-                .orElse(null)));
-
-        List<Product> tempProducts = productRepository.findAllByIdIn(locations.stream().map(ProductsLocations::getProductId).collect(Collectors.toSet()));
-        locations.forEach(x -> x.setProduct(tempProducts.stream().filter(y -> x.getProductId().equals(y.getId())).findFirst().orElse(null)));
-
+        List<ProductsLocations> locations = quantityStrategy.getLocations(orderInput.getProductMap(), productRepository.findAllProductsLocationsInSet(orderInput.getProductMap().keySet()));
+        completeTheLocations(locations);
         locations.forEach(x -> productRepository.changeTheQuantity(x.getLocationId(), x.getProductId(), x.getQuantity()));
-        Order order = new Order();
 
+        Order order = new Order();
         for (OrderDetails orderDetail : getOrderDetails(locations)) {
             order.addOrderDetail(orderDetail);
         }
