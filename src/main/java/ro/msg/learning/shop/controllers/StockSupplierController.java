@@ -24,7 +24,7 @@ public class StockSupplierController {
     }
 
     @PostMapping(value = "/rest/resupply", consumes = "text/CSV")
-    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseStatus(value = HttpStatus.CREATED)
     public void resupply(@RequestBody PLQList plqList) {
         stockSupplier.addStock(plqList.getMap());
     }
