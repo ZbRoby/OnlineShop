@@ -16,8 +16,6 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(doNotUseGetters = true, exclude = "customers")
-@ToString(doNotUseGetters = true, exclude = "customers")
 @Entity
 @Table(name = "Addresses")
 public class Address implements Serializable {
@@ -37,33 +35,12 @@ public class Address implements Serializable {
     @Column(name = "Other", nullable = true, unique = false)
     private String other;
 
-    @OneToMany(mappedBy = "address")
-    private List<Customer> customers = new ArrayList<>();
-
     public Address(String country, String city, String street, String zipCode, String other) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.zipCode = zipCode;
         this.other = other;
-    }
-
-    public void addCustomer(Customer customer) {
-        if (customer.getAddress() == null) {
-            if (!this.getCustomers().contains(customer)) {
-                this.getCustomers().add(customer);
-            }
-            customer.setAddress(this);
-        }
-    }
-
-    public void removeCustomer(Customer customer) {
-        if (customer.getAddress() == this) {
-            if (this.getCustomers().contains(customer)) {
-                this.getCustomers().remove(customer);
-            }
-            customer.setAddress(null);
-        }
     }
 
 }
