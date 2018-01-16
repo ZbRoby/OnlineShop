@@ -42,7 +42,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler(value = NoCustomerException.class)
     protected ResponseEntity<Object> noCustomerExceptionHandler(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "customer does not exist ... \nMaybe you did not link a customer to your account ... " + ex.getMessage();
+        String bodyOfResponse = "Customer does not exist ... \nMaybe you did not link a customer to your account ... " + ex.getMessage();
         return handleExceptionInternal(ex, bodyOfResponse,
             new HttpHeaders(), HttpStatus.CONFLICT, request);
     }

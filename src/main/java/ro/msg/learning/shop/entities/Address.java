@@ -1,14 +1,10 @@
 package ro.msg.learning.shop.entities;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Zbiera Alexandru-Robert <Robert.Zbiera@msg.group>
