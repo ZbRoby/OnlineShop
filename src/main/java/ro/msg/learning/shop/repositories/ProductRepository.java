@@ -44,4 +44,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     void changeTheQuantity(Long locationId, Long productId, Long quantity);
 
     List<Product> findAllByIdIn(Set<Long> ids);
+
+    List<Product> findAllByCategoryId(long id);
+
 }

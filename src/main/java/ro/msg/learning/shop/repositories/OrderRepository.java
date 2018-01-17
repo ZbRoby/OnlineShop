@@ -24,4 +24,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Long countByEmployeeId(Long id);
 
     List<Order> findAllByOrderDate(Date date);
+
+    List<Order> findAllByEmployeeId(long id);
+
+    Order findByOrdersDetailsId(long id);
 }
